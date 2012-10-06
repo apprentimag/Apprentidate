@@ -1,0 +1,103 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #3366cc;
+	text-decoration: none;
+}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.button {
+		display: block;
+		height: 30px;
+		margin: 5px 50px;
+		padding: 10px 50px;
+		background: -moz-linear-gradient(center top , #FFFFFF 0%, #E9E9E9 100%) repeat scroll 0 0 transparent;
+		border: 1px solid #aaa;
+		line-height: 30px;
+		border-radius: 5px;
+	}
+		a.button:hover {
+			background: #eee;
+			text-decoration: none;
+		}
+
+body {
+	background: #fafafa;
+}
+
+header {
+	display: table;
+	height: 100px;
+	width: 100%;
+	border-bottom: 1px solid #aaa;
+	background: url("img/dinner.jpg") center center no-repeat;
+	background-size: cover;
+	color: #333;
+}
+	header #title {
+		display: table-cell;
+		width: 30%;
+		background: rgba(255, 255, 255, 0.5);
+		text-align: center;
+		font-size: 200%;
+		vertical-align: middle;
+		text-shadow: 1px 1px 3px #666;
+		line-height: 100px;
+	}
+		header #title a {
+			display: block;
+			color: #333;
+		}
+			header #title a:hover {
+				text-decoration: none;
+			}
+	header #subtitle {
+		display: table-cell;
+		padding: 0 50px;
+		background: rgba(255, 255, 255, 0.5);
+		font-size: 90%;
+		vertical-align: middle;
+	}
+
+#global {
+	display: table;
+	height: 300px;
+	width: 100%;
+	background: #fff;
+}
+	#main {
+		display: table-cell;
+		padding: 20px 40px;
+		vertical-align: top;
+	}
+	#sidebar {
+		display: table-cell;
+		width: 30%;
+		border-left: 1px solid #aaa;
+		vertical-align: top;
+	}
+		#sidebar .info {
+			padding: 10px;
+			font-size: 90%;
+		}
+
+.post {
+	padding: 20px 50px;
+	color: #666;
+	border-top: 2px solid #aaa;
+	border-radius: 10px 10px 0 0;
+	font-size: 90%;
+}
+
+footer {
+	display: block;
+	color: #666;
+	border-top: 1px solid #aaa;
+	text-align: center;
+	font-size: 90%;
+	font-style: italic;
+}
