@@ -7,5 +7,12 @@
 		<a class="button" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">Créer un évènement</a>
 	</div>
 	
-	<div class="info">Aucun évènement n'a encore jamais été créé !</div>
+	<div class="info">
+		<?php if ($this->nbEvents === 0) { ?>
+		Aucun évènement n'a encore jamais été créé !
+		<?php } else { ?>
+		<?php $pluriel = ($this->nbEvents > 1) ? 's' : '';  ?>
+		Déjà <?php echo $this->nbEvents; ?> évènement<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
+		<?php } ?>
+	</div>
 </div>

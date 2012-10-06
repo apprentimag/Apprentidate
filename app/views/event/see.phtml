@@ -1,0 +1,67 @@
+<div id="main">
+	<div class="post">
+		<h2><?php echo $this->event->title (); ?></h2>
+		<?php $place = $this->event->place (); ?>
+		<div class="date_loc">Le <?php echo timestamptodate ($this->event->date (), false); ?><?php if (!empty ($place)) { echo ' à ' . $place; } ?> (<a href="">voir les autres dates</a>)</div>
+		<?php $author = $this->event->author (); ?>
+		<div class="author">Créé par <?php echo $author['name']; ?></div>
+		
+		<?php $desc = $this->event->description ();
+		if (!empty ($desc)) { ?>
+		<div class="description"><?php echo $desc; ?></div>
+		<?php } ?>
+	</div>
+	
+	<div class="post">
+		<?php
+			$nb = count ($this->commentaires);
+			$pluriel = ($nb > 1) ? 's' : '';
+		?>
+		<h2><?php echo $nb; ?> commentaire<?php echo $pluriel; ?></h2>
+		
+		<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_comment', 'params' => array ('id' => $this->event->id ()))); ?>">
+			<input type="text" name="user" id="user" placeholder="Votre nom <adresse@mail>" />
+			<textarea name="content" id="content" placeholder="Votre commentaire"></textarea>
+			<input class="button" type="submit" value="Commenter" />
+		</form>
+		
+		<?php $i = 0; foreach ($this->commentaires as $c) { $i++; ?>
+		<div class="comment <?php echo ($i % 2 == 0) ? 'even' : 'odd'; ?>">
+			<?php $author = $c->author (); ?>
+			<div class="avatar"><img src="<?php echo $author['avatar']; ?>" alt="avatar" /></div>
+			<div class="content">
+				<?php echo $c->content (); ?>
+				<span class="more">le <?php echo timestamptodate ($c->date ()); ?> par <?php echo $author['name']; ?></span>
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+</div>
+
+<div id="sidebar">
+	<div id="create_event">
+		<a class="button" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">Créer un évènement</a>
+	</div>
+	
+	<?php
+		$parts = $this->event->participants ();
+		$pluriel = (count ($parts) > 1) ? 's' : '';
+	?>
+	
+	<div class="participants">
+		<div class="nbParticipants"><?php echo count($parts); ?> participant<?php echo $pluriel; ?></div>
+		<ul>
+		<?php foreach ($parts as $participant) { ?>
+			<li>
+				<span class="avatar"><img src="<?php echo $participant['avatar']; ?>" alt="avatar" /></span>
+				<span><?php echo $participant['name']; ?></span>
+			</li>
+		<?php } ?>
+		</ul>
+		
+		<form class="add_user" method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_user', 'params' => array ('id' => $this->event->id ()))); ?>">
+			<input type="text" name="user" id="user" placeholder="Votre nom <adresse@mail>" />
+			<input type="submit" value="+" />
+		</form>
+	</div>
+</div>

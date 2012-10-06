@@ -5,7 +5,7 @@ class MinzException extends Exception {
 	const WARNING = 10;
 	const NOTICE = 20;
 
-	public function __construct ($message, $code = 0) {
+	public function __construct ($message, $code = self::ERROR) {
 		if ($code != MinzException::ERROR
 		 && $code != MinzException::WARNING
 		 && $code != MinzException::NOTICE) {
@@ -17,21 +17,21 @@ class MinzException extends Exception {
 }
 
 class PermissionDeniedException extends MinzException {
-	public function __construct ($file_name, $code = 0) {
+	public function __construct ($file_name, $code = self::ERROR) {
 		$message = 'Permission is denied for `' . $file_name.'`';
 		
 		parent::__construct ($message, $code);
 	}
 }
 class FileNotExistException extends MinzException {
-	public function __construct ($file_name, $code = 0) {
+	public function __construct ($file_name, $code = self::ERROR) {
 		$message = 'File doesn\'t exist : `' . $file_name.'`';
 		
 		parent::__construct ($message, $code);
 	}
 }
 class BadConfigurationException extends MinzException {
-	public function __construct ($part_missing, $code = 0) {
+	public function __construct ($part_missing, $code = self::ERROR) {
 		$message = '`' . $part_missing
 		         . '` in the configuration file is missing';
 		
@@ -39,7 +39,7 @@ class BadConfigurationException extends MinzException {
 	}
 }
 class ControllerNotExistException extends MinzException {
-	public function __construct ($controller_name, $code = 0) {
+	public function __construct ($controller_name, $code = self::ERROR) {
 		$message = 'Controller `' . $controller_name
 		         . '` doesn\'t exist';
 		
@@ -47,7 +47,7 @@ class ControllerNotExistException extends MinzException {
 	}
 }
 class ControllerNotActionControllerException extends MinzException {
-	public function __construct ($controller_name, $code = 0) {
+	public function __construct ($controller_name, $code = self::ERROR) {
 		$message = 'Controller `' . $controller_name
 		         . '` isn\'t instance of ActionController';
 		
@@ -55,7 +55,7 @@ class ControllerNotActionControllerException extends MinzException {
 	}
 }
 class ActionException extends MinzException {
-	public function __construct ($controller_name, $action_name, $code = 0) {
+	public function __construct ($controller_name, $action_name, $code = self::ERROR) {
 		$message = '`' . $action_name . '` cannot be invoked on `'
 		         . $controller_name . '`';
 		
@@ -65,7 +65,7 @@ class ActionException extends MinzException {
 class RouteNotFoundException extends MinzException {
 	private $route;
 	
-	public function __construct ($route, $code = 0) {
+	public function __construct ($route, $code = self::ERROR) {
 		$this->route = $route;
 		
 		$message = 'Route `' . $route . '` not found';
@@ -78,10 +78,17 @@ class RouteNotFoundException extends MinzException {
 	}
 }
 class PDOConnectionException extends MinzException {
-	public function __construct ($string_connection, $user, $code = 0) {
+	public function __construct ($string_connection, $user, $code = self::ERROR) {
 		$message = 'Access to database is denied for `' . $user . '`'
 		         . ' (`' . $string_connection . '`)';
 		
 		parent::__construct ($message, $code);
+	}
+}
+class CurrentPagePaginationException extends MinzException {
+	public function __construct ($page) {
+		$message = 'Page number `' . $page . '` doesn\'t exist';
+		
+		parent::__construct ($message, self::ERROR);
 	}
 }

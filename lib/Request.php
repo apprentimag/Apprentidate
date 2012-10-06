@@ -178,7 +178,7 @@ class Request {
 	}
 	
 	public static function isPost () {
-		return !empty ($_POST);
+		return !empty ($_POST) || !empty ($_FILES);
 	}
 }
 

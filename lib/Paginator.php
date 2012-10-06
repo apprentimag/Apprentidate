@@ -120,12 +120,18 @@ class Paginator {
 		if ($nbItems <= $this->nbItemsPerPage || $all) {
 			$array = $this->items;
 		} else {
-			$i = ($this->currentPage - 1) * $this->nbItemsPerPage;
+			$begin = ($this->currentPage - 1) * $this->nbItemsPerPage;
 			$counter = 0;
-
-			while ($counter < $this->nbItemsPerPage && $i < $nbItems) {
-				$array[] = $this->items[$i];
-				$counter++;
+			$i = 0;
+			
+			foreach ($this->items as $key => $item) {
+				if ($i >= $begin) {
+					$array[$key] = $item;
+					$counter++;
+				}
+				if ($counter >= $this->nbItemsPerPage) {
+					break;
+				}
 				$i++;
 			}
 		}
@@ -163,15 +169,12 @@ class Paginator {
 		$this->nbItemsPerPage = $nbItemsPerPage;
 		$this->_nbPage ();
 	}
-	public function _currentPage ($currentPage) {
-		if($currentPage < 1) {
-			$currentPage = 1;
+	public function _currentPage ($page) {
+		if($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
+			throw new CurrentPagePaginationException ($page);
 		}
-		if ($currentPage > $this->nbPage) {
-			$currentPage = $this->nbPage;
-		} 
 
-		$this->currentPage = $currentPage;
+		$this->currentPage = $page;
 	}
 	private function _nbPage () {
 		if ($this->nbItemsPerPage > 0) {

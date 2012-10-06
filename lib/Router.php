@@ -165,8 +165,10 @@ class Router {
 					$url['params']
 				);
 				
-				// TODO vérifier cas où $params est vide et pas $url['params']
-				if (empty ($difference_params)) {
+				// vérifie que pas de différence
+				// et le cas où $params est vide et pas $url['params']
+				if (empty ($difference_params)
+				&& (!empty ($params) || empty ($url['params']))) {
 					return $route;
 				}
 			}
@@ -220,6 +222,7 @@ class Router {
 	 		
 	 		if (!$in_brackets
 	 		 && ($route['route'][$i] != '\\' || $backslash)
+	 		 && ($route['route'][$i] != '(' || $backslash)
 	 		 && ($route['route'][$i] != ')' || $backslash)
 	 		 && ($route['route'][$i] != '?' || $backslash)) {
 				// on est pas dans les parenthèses

@@ -5,7 +5,7 @@
 */
 
 /**
- * La classe Model_txt représente le modèle interragissant avec les fichiers de type texte
+ * La classe Model_array représente le modèle interragissant avec les fichiers de type texte gérant des tableaux php
  */
 class Model_array extends Model_txt {
 	/**

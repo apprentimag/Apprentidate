@@ -7,13 +7,20 @@ require ('FrontController.php');
 
 class App_FrontController extends FrontController {
 	public function init () {
+		$this->loadLibs ();
 		$this->loadModels ();
 		$this->loadScriptsAndStyles ();
 		
 		Session::init ();
 	}
 	
+	private function loadLibs () {
+		require (LIB_PATH . '/lib_event.php');
+	}
+	
 	private function loadModels () {
+		include (APP_PATH . '/models/Event.php');
+		include (APP_PATH . '/models/Comment.php');
 	}
 	
 	private function loadScriptsAndStyles () {
