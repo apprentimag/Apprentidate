@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<?php echo self::headTitle(); ?>
+		<?php echo self::headStyle(); ?>
+	</head>
+	<body>
+	
+<header>
+	<div id="title"><?php echo Configuration::title (); ?></div>
+	<div id="subtitle">Une date pour les amener et dans la coloc' les lier.</div>
+</header>
+
+<div id="global">
+<?php $this->render (); ?>
+</div>
+
+<footer>
+	Code disponible sur <a href="https://github.com/">GitHub</a>
+</footer>
+	</body>
+</html>
