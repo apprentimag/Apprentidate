@@ -178,6 +178,15 @@ header {
 							#sidebar .participants ul li span.avatar img {
 								width: 42px;
 							}
+					#sidebar .participants ul li a.delete {
+						display: none;
+						padding: 8px;
+						background: url("img/delete.png") no-repeat center center;
+						text-decoration: none !important;
+					}
+						#sidebar .participants ul li:hover a.delete {
+							display: inline;
+						}
 
 .post {
 	padding: 20px 50px;
@@ -236,6 +245,15 @@ header {
 			color: #999;
 			font-size: 80%;
 		}
+	.comment a.delete {
+		display: none;
+		padding: 8px;
+		background: url("img/delete.png") no-repeat center center;
+		text-decoration: none !important;
+	}
+		.comment:hover a.delete {
+			display: inline;
+		}
 
 footer {
 	display: block;
@@ -265,7 +283,7 @@ footer {
 		text-decoration: none;
 	}
 
-form div.info {
+div.info {
 	margin: 10px 10px 20px;
 	padding: 10px;
 	background: #fff;
@@ -276,8 +294,12 @@ form div.info {
 	font-size: 90%;
 	font-style: italic;
 }
-	form div.info.error {
+	div.info.error {
 		background: -moz-linear-gradient(top, #fee, #fff);
+	}
+	div.info.notice {
+		border: none;
+		box-shadow: none;
 	}
 
 .missing {

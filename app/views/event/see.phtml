@@ -2,7 +2,7 @@
 	<div class="post">
 		<h2><?php echo $this->event->title (); ?></h2>
 		<?php $place = $this->event->place (); ?>
-		<div class="date_loc">Le <?php echo timestamptodate ($this->event->date (), false); ?><?php if (!empty ($place)) { echo ' à ' . $place; } ?> (<a href="">voir les autres dates</a>)</div>
+		<div class="date_loc">Le <?php echo timestamptodate ($this->event->date (), false); ?><?php if (!empty ($place)) { echo ' à ' . $place; } ?></div>
 		<?php $author = $this->event->author (); ?>
 		<div class="author">Créé par <em><?php echo $author['name']; ?></em></div>
 		
@@ -12,7 +12,7 @@
 		<?php } ?>
 	</div>
 	
-	<div class="post">
+	<div class="post" id="commentaires">
 		<?php
 			$nb = count ($this->commentaires);
 			$pluriel = ($nb > 1) ? 's' : '';
@@ -33,6 +33,7 @@
 				<?php echo $c->content (); ?>
 				<span class="more">le <?php echo timestamptodate ($c->date ()); ?> par <em><?php echo $author['name']; ?></em></span>
 			</div>
+			<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>">&nbsp;</a>
 		</div>
 		<?php } ?>
 	</div>
@@ -51,10 +52,11 @@
 	<div class="participants">
 		<div class="nbParticipants"><?php echo count($parts); ?> participant<?php echo $pluriel; ?></div>
 		<ul>
-		<?php foreach ($parts as $participant) { ?>
+		<?php foreach ($parts as $key => $participant) { ?>
 			<li>
 				<span class="avatar"><img src="<?php echo $participant['avatar']; ?>" alt="avatar" /></span>
 				<span><?php echo $participant['name']; ?></span>
+				<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $key))); ?>">&nbsp;</a>
 			</li>
 		<?php } ?>
 		</ul>

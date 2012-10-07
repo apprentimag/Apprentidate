@@ -56,7 +56,7 @@ class CommentDAO extends Model_array {
 	}
 	
 	public function addComment ($values) {
-		$id = $values['date'];
+		$id = $this->generateKey ($values['date']);
 		
 		if (!isset ($this->array[$id])) {
 			$this->array[$id] = array ();

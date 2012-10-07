@@ -10,11 +10,11 @@ class eventController extends ActionController {
 		$this->view->missing = array ();
 		
 		if (Request::isPost ()) {
-			$title = Request::param ('title');
-			$author = Request::param ('author');
-			$date = Request::param ('date');
-			$place = Request::param ('place', '');
-			$desc = Request::param ('description', '');
+			$title = trim (str_replace (' ', ' ', Request::param ('title')));
+			$author = trim (str_replace (' ', ' ', Request::param ('author')));
+			$date = trim (str_replace (' ', ' ', Request::param ('date')));
+			$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
+			$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
 			
 			$required = array (
 				'title' => $title,
@@ -71,9 +71,9 @@ class eventController extends ActionController {
 	
 	public function add_userAction () {
 		$id = htmlspecialchars (Request::param ('id'));
-		$user = Request::param ('user');
+		$user = trim (str_replace (' ', ' ', Request::param ('user')));
 		
-		if ($user != false) {
+		if ($id != false && $user != false) {
 			$eventDAO = new EventDAO ();
 			$event = $eventDAO->searchById ($id);
 			$parts = $event->participants (true);
@@ -93,10 +93,35 @@ class eventController extends ActionController {
 		), true);
 	}
 	
+	public function delete_userAction () {
+		$idEvent = htmlspecialchars (Request::param ('idEvent'));
+		$id = Request::param ('id');
+		
+		if ($idEvent != false && $id !== false) {
+			$eventDAO = new EventDAO ();
+			$event = $eventDAO->searchById ($idEvent);
+			$parts = $event->participants (true);
+			
+			unset ($parts[$id]);
+			
+			$values = array (
+				'participants' => $parts
+			);
+			
+			$eventDAO->updateEvent ($idEvent, $values);
+		}
+		
+		Request::forward (array (
+			'c' => 'event',
+			'a' => 'see',
+			'params' => array ('id' => $idEvent)
+		), true);
+	}
+	
 	public function add_commentAction () {
 		$id = htmlspecialchars (Request::param ('id'));
-		$user = Request::param ('user');
-		$content = htmlspecialchars (Request::param ('content'));
+		$user = trim (str_replace (' ', ' ', Request::param ('user')));
+		$content = trim (str_replace (' ', ' ', htmlspecialchars (Request::param ('content'))));
 		
 		if ($user != false && $content != false) {
 			$commentDAO = new CommentDAO ();
@@ -115,6 +140,22 @@ class eventController extends ActionController {
 			'c' => 'event',
 			'a' => 'see',
 			'params' => array ('id' => $id)
+		), true);
+	}
+	
+	public function delete_commentAction () {
+		$id = htmlspecialchars (Request::param ('id'));
+		$idEvent = htmlspecialchars (Request::param ('idEvent'));
+		
+		if ($id != false) {
+			$commentDAO = new CommentDAO ();
+			$commentDAO->deleteComment ($id);
+		}
+		
+		Request::forward (array (
+			'c' => 'event',
+			'a' => 'see',
+			'params' => array ('id' => $idEvent)
 		), true);
 	}
 }
