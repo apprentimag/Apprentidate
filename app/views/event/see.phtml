@@ -4,7 +4,7 @@
 		<?php $place = $this->event->place (); ?>
 		<div class="date_loc">Le <?php echo timestamptodate ($this->event->date (), false); ?><?php if (!empty ($place)) { echo ' à ' . $place; } ?> (<a href="">voir les autres dates</a>)</div>
 		<?php $author = $this->event->author (); ?>
-		<div class="author">Créé par <?php echo $author['name']; ?></div>
+		<div class="author">Créé par <em><?php echo $author['name']; ?></em></div>
 		
 		<?php $desc = $this->event->description ();
 		if (!empty ($desc)) { ?>
@@ -31,7 +31,7 @@
 			<div class="avatar"><img src="<?php echo $author['avatar']; ?>" alt="avatar" /></div>
 			<div class="content">
 				<?php echo $c->content (); ?>
-				<span class="more">le <?php echo timestamptodate ($c->date ()); ?> par <?php echo $author['name']; ?></span>
+				<span class="more">le <?php echo timestamptodate ($c->date ()); ?> par <em><?php echo $author['name']; ?></em></span>
 			</div>
 		</div>
 		<?php } ?>

@@ -34,8 +34,12 @@ class Event extends Model {
 	public function place () {
 		return $this->place;
 	}
-	public function description () {
-		return $this->description;
+	public function description ($raw = false) {
+		if ($raw) {
+			return $this->description;
+		} else {
+			return nl2br ($this->description);
+		}
 	}
 	public function participants ($raw = false) {
 		if ($raw) {

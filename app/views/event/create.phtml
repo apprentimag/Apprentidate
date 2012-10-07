@@ -14,7 +14,7 @@
 		
 		<input <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" placeholder="Titre de l'évènement" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
 		
-		<input <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" placeholder="Initiateur de l'évènement <adresse@mail>" <?php if (!empty ($this->values['author'])) { echo 'value="' . $this->values['author'] . '"'; } ?>/>
+		<input <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" placeholder="Votre nom <adresse@mail>" <?php if (!empty ($this->values['author'])) { echo 'value="' . $this->values['author'] . '"'; } ?>/>
 		
 		<input <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['date']; } else { echo date ('Y-m-d', time ()); } ?>" />
 		

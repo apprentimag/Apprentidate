@@ -25,8 +25,12 @@ class Comment extends Model {
 	public function date () {
 		return $this->date;
 	}
-	public function content () {
-		return $this->content;
+	public function content ($raw = false) {
+		if ($raw) {
+			return $this->content;
+		} else {
+			return nl2br ($this->content);
+		}
 	}
 	
 	public function _id ($id) {

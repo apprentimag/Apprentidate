@@ -33,7 +33,7 @@ function parse_user ($user_tmp) {
 	if (preg_match ($pattern, $user_tmp)) {
 		$user['name'] = preg_replace ($pattern, '\\1', $user_tmp);
 		$user['mail'] = preg_replace ($pattern, '\\2', $user_tmp);
-		$user['avatar'] = 'https://www.gravatar.com/avatar/' . md5 (strtolower (trim ($user['mail']))) . '?d=' . urlencode ('http://marienfressinaud.fr/avatar_default.png') . '&s=42';
+		$user['avatar'] = 'https://www.gravatar.com/avatar/' . md5 (strtolower (trim ($user['mail']))) . '?d=' . urlencode ('http://marienfressinaud.fr/avatar_default.png') . '&s=60';
 	} else {
 		$user['name'] = htmlspecialchars ($user_tmp);
 		$user['avatar'] = 'http://marienfressinaud.fr/avatar_default.png';
