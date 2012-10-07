@@ -25,5 +25,7 @@ class App_FrontController extends FrontController {
 	
 	private function loadScriptsAndStyles () {
 		View::appendStyle (Url::display ('/theme/base.css'));
+		View::appendScript ('https://login.persona.org/include.js');
+		View::appendScript (Url::display ('/scripts/jquery.js'));
 	}
 }

@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<?php echo self::headTitle(); ?>
 		<?php echo self::headStyle(); ?>
+		<?php echo self::headScript(); ?>
 	</head>
 	<body>
 	
@@ -17,7 +18,15 @@
 </div>
 
 <footer>
-	Code disponible sur <a href="https://github.com/marienfressinaud/Apprentidate">GitHub</a>
+	Code disponible sur <a href="https://github.com/marienfressinaud/Apprentidate">GitHub</a><br />
+	<?php if (!is_logged ()) { ?>
+	<a id="signin" href="#" class="persona-button"><span>Sign in</span></a>
+	<?php } else { ?>
+	<a id="signout" href="#" class="persona-button"><span>Sign out</span></a>
+	<?php } ?>
 </footer>
+
+<?php $this->partial ('script-persona'); ?>
+
 	</body>
 </html>

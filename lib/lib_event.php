@@ -1,5 +1,10 @@
 <?php
 
+// vérifie qu'on est connecté
+function is_logged () {
+	return Session::param ('mail') != false;
+}
+
 // tiré de Shaarli de Seb Sauvage
 function small_hash ($txt) {
 

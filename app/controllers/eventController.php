@@ -95,20 +95,23 @@ class eventController extends ActionController {
 	
 	public function delete_userAction () {
 		$idEvent = htmlspecialchars (Request::param ('idEvent'));
-		$id = Request::param ('id');
 		
-		if ($idEvent != false && $id !== false) {
-			$eventDAO = new EventDAO ();
-			$event = $eventDAO->searchById ($idEvent);
-			$parts = $event->participants (true);
+		if (is_logged ()) {
+			$id = Request::param ('id');
+		
+			if ($idEvent != false && $id !== false) {
+				$eventDAO = new EventDAO ();
+				$event = $eventDAO->searchById ($idEvent);
+				$parts = $event->participants (true);
 			
-			unset ($parts[$id]);
+				unset ($parts[$id]);
 			
-			$values = array (
-				'participants' => $parts
-			);
+				$values = array (
+					'participants' => $parts
+				);
 			
-			$eventDAO->updateEvent ($idEvent, $values);
+				$eventDAO->updateEvent ($idEvent, $values);
+			}
 		}
 		
 		Request::forward (array (
@@ -145,12 +148,15 @@ class eventController extends ActionController {
 	}
 	
 	public function delete_commentAction () {
-		$id = htmlspecialchars (Request::param ('id'));
 		$idEvent = htmlspecialchars (Request::param ('idEvent'));
 		
-		if ($id != false) {
-			$commentDAO = new CommentDAO ();
-			$commentDAO->deleteComment ($id);
+		if (is_logged ()) {
+			$id = htmlspecialchars (Request::param ('id'));
+		
+			if ($id != false) {
+				$commentDAO = new CommentDAO ();
+				$commentDAO->deleteComment ($id);
+			}
 		}
 		
 		Request::forward (array (

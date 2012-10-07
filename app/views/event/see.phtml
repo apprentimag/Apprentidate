@@ -33,7 +33,10 @@
 				<?php echo $c->content (); ?>
 				<span class="more">le <?php echo timestamptodate ($c->date ()); ?> par <em><?php echo $author['name']; ?></em></span>
 			</div>
+			
+			<?php if (is_logged ()) { ?>
 			<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>">&nbsp;</a>
+			<?php } ?>
 		</div>
 		<?php } ?>
 	</div>
@@ -56,7 +59,10 @@
 			<li>
 				<span class="avatar"><img src="<?php echo $participant['avatar']; ?>" alt="avatar" /></span>
 				<span><?php echo $participant['name']; ?></span>
+				
+				<?php if (is_logged ()) { ?>
 				<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $key))); ?>">&nbsp;</a>
+				<?php } ?>
 			</li>
 		<?php } ?>
 		</ul>
