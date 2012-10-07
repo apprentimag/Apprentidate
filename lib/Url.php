@@ -12,6 +12,7 @@ class Url {
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *                    $url['protocol'] = protocole à utiliser (http par défaut)
+	 *                    $url['anchor'] = une ancre correspondant à un id
 	 *             ou comme une chaîne de caractère
 	 * @return l'url formatée
 	 */
@@ -41,6 +42,10 @@ class Url {
 			}
 		} else {
 			$url_string .= $url;
+		}
+		
+		if (isset ($url['anchor']) && !empty ($url['anchor'])) {
+			$url_string .= '#' . $url['anchor'];
 		}
 		
 		return $url_string;

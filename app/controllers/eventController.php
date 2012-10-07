@@ -139,7 +139,8 @@ class eventController extends ActionController {
 		Request::forward (array (
 			'c' => 'event',
 			'a' => 'see',
-			'params' => array ('id' => $id)
+			'params' => array ('id' => $id),
+			'anchor' => 'commentaires'
 		), true);
 	}
 	
