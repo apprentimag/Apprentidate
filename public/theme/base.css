@@ -35,6 +35,7 @@ form {
 	background: #fafafa;
 	border: 1px solid #ddd;
 	border-radius: 5px;
+	box-shadow: 3px 3px 5px #aaa;
 }
 	input:focus, textarea:focus {
 		color: #3366cc !important;
@@ -63,21 +64,37 @@ form {
 		width: 300px;
 		padding: 0;
 		margin: 0 0 0 60px;
-		background: #fff;
+		background: none;
 		border: none;
+		box-shadow: none;
 	}
 		form.add_user input {
-			display: table-cell; height: 30px;
-			color: #aaa; border: 1px solid #aaa; line-height: 30px; vertical-align: middle; box-shadow: 0px 0px 3px #ddd; font-size: 90%;
+			display: table-cell;
+			height: 30px;
+			color: #aaa;
+			border: 1px solid #aaa;
+			line-height: 30px;
+			vertical-align: middle;
+			box-shadow: 0px 0px 3px #ddd;
+			font-size: 80%;
 		}
 			form.add_user input[type="text"] {
-				width: 250px; padding: 0 0 0 10px;
-				border-right: none; border-radius: 5px 0 0 5px;
+				width: 250px;
+				padding: 0 0 0 10px;
+				border-right: none;
+				border-radius: 5px 0 0 5px;
 			}
 			form.add_user input[type="submit"] {
-				width: 30px; height: 32px;
-				background: #e9e9e9; border-radius: 0 5px 5px 0; cursor: pointer; font-weight: bold;
-				background: -moz-linear-gradient(center top, #FFFFFF 0%, #E9E9E9 100%);
+				width: 30px;
+				height: 32px;
+				background: #e9e9e9;
+				border-radius: 0 5px 5px 0;
+				cursor: pointer;
+				font-weight:bold;
+				background: -moz-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+				background: -webkit-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+				background: -o-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+				background: linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
 			}
 
 /* STRUCTURE */
@@ -97,11 +114,11 @@ header {
 	header #title {
 		display: table-cell;
 		width: 30%;
-		background: rgba(255, 255, 255, 0.5);
+		background: rgba(255, 255, 255, 0.6);
 		text-align: center;
 		font-size: 200%;
 		vertical-align: middle;
-		text-shadow: 1px 1px 3px #ddd;
+		text-shadow: 1px 1px 3px #aaa;
 		line-height: 100px;
 	}
 		header #title a {
@@ -114,7 +131,7 @@ header {
 	header #subtitle {
 		display: table-cell;
 		padding: 0 50px;
-		background: rgba(255, 255, 255, 0.5);
+		background: rgba(255, 255, 255, 0.6);
 		font-size: 90%;
 		vertical-align: middle;
 		font-family: Palatino, "Times New Roman", serif;
@@ -122,7 +139,7 @@ header {
 
 #global {
 	display: table;
-	height: 300px;
+	height: 400px;
 	width: 100%;
 	background: #fff;
 }
@@ -135,6 +152,7 @@ header {
 		display: table-cell;
 		width: 30%;
 		padding: 20px 0;
+		background: #eee;
 		border-left: 1px solid #aaa;
 		vertical-align: top;
 	}
@@ -150,7 +168,7 @@ header {
 				width: 150px;
 				margin: -12px 0 0;
 				padding: 0 30px;
-				background: #fff;
+				background: #eee;
 				color: #666;
 				font-weight: bold;
 				text-align: center;
@@ -170,6 +188,7 @@ header {
 						display: table-cell;
 						text-align: left;
 						vertical-align: middle;
+						font-weight: bold;
 					}
 						#sidebar .participants ul li span.avatar {
 							width: 100px;
@@ -193,6 +212,9 @@ header {
 	color: #666;
 	border-top: 2px solid #aaa;
 	background: -moz-linear-gradient(top, #f0f0f0, #fff 20px);
+	background: -webkit-linear-gradient(top, #f0f0f0, #fff 20px);
+	background: -o-linear-gradient(top, #f0f0f0, #fff 20px);
+	background: linear-gradient(top, #f0f0f0, #fff 20px);
 	border-radius: 10px 10px 0 0;
 	font-size: 90%;
 	line-height: 170%;
@@ -201,6 +223,12 @@ header {
 		background: #fff;
 		border-top: 1px solid #eee;
 		border-radius: 0;
+	}
+	.post h2 a.edit {
+		float: right;
+		padding: 0 0 0 20px;
+		background: url("img/update.png") left center no-repeat;
+		font-size: 70%;
 	}
 	.post .date_loc {
 		padding: 10px 0 0 35px;
@@ -247,7 +275,7 @@ header {
 		}
 	.comment a.delete {
 		display: none;
-		padding: 8px;
+		padding: 0 8px;
 		background: url("img/delete.png") no-repeat center center;
 		text-decoration: none !important;
 	}
@@ -402,7 +430,10 @@ footer {
 	min-height: 30px;
 	margin: 0 50px;
 	padding: 10px 50px;
-	background: -moz-linear-gradient(center top , #FFFFFF 0%, #E9E9E9 100%);
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+	background: -webkit-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+	background: -o-linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
+	background: linear-gradient(top, #FFFFFF 0%, #E9E9E9 100%);
 	border: 1px solid #aaa;
 	line-height: 30px;
 	border-radius: 5px;
@@ -427,13 +458,20 @@ div.info {
 }
 	div.info.error {
 		background: -moz-linear-gradient(top, #fee, #fff);
+		background: -webkit-linear-gradient(top, #fee, #fff);
+		background: -o-linear-gradient(top, #fee, #fff);
+		background: linear-gradient(top, #fee, #fff);
 	}
 	div.info.notice {
 		border: none;
 		box-shadow: none;
+		background: none;
 	}
 
 .missing {
 	background: -moz-linear-gradient(top, #fee, #fff 10px) !important;
+	background: -webkit-linear-gradient(top, #fee, #fff 10px) !important;
+	background: -o-linear-gradient(top, #fee, #fff 10px) !important;
+	background: linear-gradient(top, #fee, #fff 10px) !important;
 	border: 1px solid #f66 !important;
 }

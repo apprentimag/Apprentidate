@@ -19,6 +19,12 @@ return array (
 		'action'     => 'create'
 	),
 	array (
+		'route'      => '/editer_un_evenement\?e=([\d\w]{6})',
+		'controller' => 'event',
+		'action'     => 'edit',
+		'params'     => array ('id')
+	),
+	array (
 		'route'      => '/ajouter_utilisateur\?e=([\d\w]{6})',
 		'controller' => 'event',
 		'action'     => 'add_user',

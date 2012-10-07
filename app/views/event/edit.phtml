@@ -1,0 +1,23 @@
+<div id="main">
+	<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
+	
+	<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">
+		<h2>Éditer un évènement</h2>
+		
+		<?php if (!empty ($this->missing)) { ?>
+		<div class="info error">Vous n'avez pas rempli tous les champs obligatoires !</div>
+		<?php } ?>
+		
+		<input <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" placeholder="Titre de l'évènement" value="<?php echo $this->event->title (); ?>"/>
+		
+		<input <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" placeholder="Votre nom <adresse@mail>" value="<?php echo $this->event->author (true); ?>" />
+		
+		<input <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php echo date ('Y-m-d', $this->event->date ()); ?>" />
+		
+		<input type="text" name="place" id="placeEvent" placeholder="Lieu (optionnel)"  value="<?php echo $this->event->place (); ?>" />
+		
+		<textarea name="description" id="descEvent" placeholder="Description de l'évènement (optionnelle)"><?php echo $this->event->description (true); ?></textarea>
+		
+		<input class="button" type="submit" value="Créer" />
+	</form>
+</div>

@@ -18,12 +18,12 @@
 </div>
 
 <footer>
-	Code disponible sur <a href="https://github.com/marienfressinaud/Apprentidate">GitHub</a><br />
 	<?php if (!is_logged ()) { ?>
 	<a id="signin" href="#" class="persona-button"><span>Sign in</span></a>
 	<?php } else { ?>
-	<a id="signout" href="#" class="persona-button"><span>Sign out</span></a>
+	<a id="signout" href="#" class="persona-button"><span>Sign out - <?php echo Session::param ('mail'); ?></span></a>
 	<?php } ?>
+	<br />Code disponible sur <a href="https://github.com/marienfressinaud/Apprentidate">GitHub</a>
 </footer>
 
 <?php $this->partial ('script-persona'); ?>

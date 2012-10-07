@@ -1,9 +1,6 @@
 <?php
 
 class eventController extends ActionController {
-	public function firstAction () {
-	}
-	
 	public function createAction () {
 		View::prependTitle ('Créer un évènement - ');
 		
@@ -52,6 +49,70 @@ class eventController extends ActionController {
 		}
 	}
 	
+	public function editAction () {
+		$id = htmlspecialchars (Request::param ('id'));
+		
+		$eventDAO = new EventDAO ();
+		$this->view->event = $eventDAO->searchById ($id);
+		
+		if ($this->view->event === false) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		}
+		
+		$this->view->missing = array ();
+		
+		$author = $this->view->event->author ();
+		if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) {
+			View::prependTitle ('Éditer `' . $this->view->event->title () . '` - ');
+			
+			if (Request::isPost ()) {
+				$title = trim (str_replace (' ', ' ', Request::param ('title')));
+				$author = trim (str_replace (' ', ' ', Request::param ('author')));
+				$date = trim (str_replace (' ', ' ', Request::param ('date')));
+				$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
+				$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
+			
+				$required = array (
+					'title' => $title,
+					'author' => $author,
+					'date' => $date
+				);
+				$this->view->missing = check_missing ($required);
+			
+				$values = array (
+					'title' => htmlspecialchars ($title),
+					'author' => $author,
+					'dates' => array (strtotime ($date)),
+					'place' => htmlspecialchars ($place),
+					'description' => htmlspecialchars ($desc),
+					'participants' => array ($author)
+				);
+			
+				if (empty ($this->view->missing)) {
+					$eventDAO = new EventDAO ();
+				
+					$eventDAO->updateEvent ($id, $values);
+					
+					Request::forward (array (
+						'c' => 'event',
+						'a' => 'see',
+						'params' => array ('id' => $id)
+					), true);
+				} else {
+					$this->view->values = $values;
+				}
+			}
+		} else {
+			Error::error (
+				403,
+				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+			);
+		}
+	}
+	
 	public function seeAction () {
 		$id = htmlspecialchars (Request::param ('id'));
 		
@@ -64,6 +125,8 @@ class eventController extends ActionController {
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
 		}
+		
+		View::prependTitle ($this->view->event->title () . ' - ');
 		
 		$comDAO = new CommentDAO ();
 		$this->view->commentaires = array_reverse ($comDAO->listByEventId ($id));

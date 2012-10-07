@@ -1,9 +1,9 @@
 <div id="main">
 	<div class="post">
-		<h2><?php echo $this->event->title (); ?></h2>
-		<?php $place = $this->event->place (); ?>
-		<div class="date_loc">Le <?php echo timestamptodate ($this->event->date (), false); ?><?php if (!empty ($place)) { echo ' à ' . $place; } ?></div>
 		<?php $author = $this->event->author (); ?>
+		<h2><?php echo $this->event->title (); ?><?php if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) { ?><a class="edit" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">éditer</a><?php } ?></h2>
+		<?php $place = $this->event->place (); ?>
+		<div class="date_loc">Le <strong><?php echo timestamptodate ($this->event->date (), false); ?></strong><?php if (!empty ($place)) { echo ' à <strong>' . $place . '</strong>'; } ?></div>
 		<div class="author">Créé par <em><?php echo $author['name']; ?></em></div>
 		
 		<?php $desc = $this->event->description ();

@@ -5,7 +5,7 @@ class indexController extends ActionController {
 	}
 	
 	public function indexAction () {
-		View::prependTitle ('Accueil - ');
+		View::appendTitle (' - Préparons nos évènements !');
 		
 		$eventDAO = new EventDAO ();
 		$this->view->nbEvents = $eventDAO->count ();
