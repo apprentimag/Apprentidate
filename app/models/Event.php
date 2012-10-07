@@ -4,7 +4,7 @@ class Event extends Model {
 	private $id;
 	private $title;
 	private $author;
-	private $dates = array ();
+	private $date;
 	private $place;
 	private $description;
 	private $participants = array ();
@@ -25,11 +25,8 @@ class Event extends Model {
 			return parse_user ($this->author);
 		}
 	}
-	public function date ($pos = 0) {
-		return $this->dates[$pos];
-	}
-	public function dates () {
-		return $this->dates;
+	public function date () {
+		return $this->date;
 	}
 	public function place () {
 		return $this->place;
@@ -58,12 +55,8 @@ class Event extends Model {
 	public function _author ($value) {
 		$this->author = $value;
 	}
-	public function _dates ($value) {
-		if (!is_array ($value)) {
-			$value = array ($value);
-		}
-	
-		$this->dates = $value;
+	public function _date ($value) {
+		$this->date = $value;
 	}
 	public function _place ($value) {
 		$this->place = $value;
@@ -158,7 +151,7 @@ class HelperEvent {
 			$list[$key]->_id ($key);
 			$list[$key]->_title ($dao['title']);
 			$list[$key]->_author ($dao['author']);
-			$list[$key]->_dates ($dao['dates']);
+			$list[$key]->_date ($dao['date']);
 			$list[$key]->_place ($dao['place']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_participants ($dao['participants']);

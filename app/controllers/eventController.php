@@ -23,7 +23,7 @@ class eventController extends ActionController {
 			$values = array (
 				'title' => htmlspecialchars ($title),
 				'author' => $author,
-				'dates' => array (strtotime ($date)),
+				'date' => strtotime ($date),
 				'place' => htmlspecialchars ($place),
 				'description' => htmlspecialchars ($desc),
 				'participants' => array ($author)
@@ -85,7 +85,7 @@ class eventController extends ActionController {
 				$values = array (
 					'title' => htmlspecialchars ($title),
 					'author' => $author,
-					'dates' => array (strtotime ($date)),
+					'date' => strtotime ($date),
 					'place' => htmlspecialchars ($place),
 					'description' => htmlspecialchars ($desc),
 					'participants' => array ($author)
