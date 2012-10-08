@@ -199,7 +199,9 @@ header {
 							}
 					#sidebar .participants ul li a.delete {
 						display: none;
-						padding: 8px;
+						position: absolute;
+						margin: 0 0 0 -25px;
+						padding: 0 8px;
 						background: url("img/delete.png") no-repeat center center;
 						text-decoration: none !important;
 					}
@@ -267,6 +269,8 @@ header {
 		}
 	.comment a.delete {
 		display: none;
+		position: absolute;
+		margin: 0 0 0 -20px;
 		padding: 0 8px;
 		background: url("img/delete.png") no-repeat center center;
 		text-decoration: none !important;
