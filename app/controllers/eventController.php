@@ -20,10 +20,15 @@ class eventController extends ActionController {
 			);
 			$this->view->missing = check_missing ($required);
 			
+			$timestamp = strtotime ($date);
+			if ($timestamp == false) {
+				$this->view->missing[] = 'date';
+			}
+			
 			$values = array (
 				'title' => htmlspecialchars ($title),
 				'author' => $author,
-				'date' => strtotime ($date),
+				'date' => $timestamp,
 				'place' => htmlspecialchars ($place),
 				'description' => htmlspecialchars ($desc),
 				'participants' => array ($author)
@@ -44,6 +49,7 @@ class eventController extends ActionController {
 					$this->view->error = true;
 				}
 			} else {
+				$values['date'] = $date;
 				$this->view->values = $values;
 			}
 		}
@@ -81,11 +87,16 @@ class eventController extends ActionController {
 					'date' => $date
 				);
 				$this->view->missing = check_missing ($required);
+				
+				$timestamp = strtotime ($date);
+				if ($timestamp == false) {
+					$this->view->missing[] = 'date';
+				}
 			
 				$values = array (
 					'title' => htmlspecialchars ($title),
 					'author' => $author,
-					'date' => strtotime ($date),
+					'date' => $timestamp,
 					'place' => htmlspecialchars ($place),
 					'description' => htmlspecialchars ($desc),
 					'participants' => array ($author)
@@ -101,8 +112,6 @@ class eventController extends ActionController {
 						'a' => 'see',
 						'params' => array ('id' => $id)
 					), true);
-				} else {
-					$this->view->values = $values;
 				}
 			}
 		} else {
@@ -124,12 +133,12 @@ class eventController extends ActionController {
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
+		} else {
+			View::prependTitle ($this->view->event->title () . ' - ');
+		
+			$comDAO = new CommentDAO ();
+			$this->view->commentaires = array_reverse ($comDAO->listByEventId ($id));
 		}
-		
-		View::prependTitle ($this->view->event->title () . ' - ');
-		
-		$comDAO = new CommentDAO ();
-		$this->view->commentaires = array_reverse ($comDAO->listByEventId ($id));
 	}
 	
 	public function add_userAction () {

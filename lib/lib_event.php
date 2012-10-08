@@ -39,10 +39,14 @@ function parse_user ($user_tmp) {
 	if (preg_match ($pattern, $user_tmp)) {
 		$user['name'] = htmlspecialchars (preg_replace ($pattern, '\\1', $user_tmp));
 		$user['mail'] = htmlspecialchars (preg_replace ($pattern, '\\2', $user_tmp));
-		$user['avatar'] = 'https://www.gravatar.com/avatar/' . md5 (strtolower (trim ($user['mail']))) . '?d=' . urlencode ($default_avatar) . '&s=60';
+		$user['avatar'] = 'https://www.gravatar.com/avatar/' . md5 (strtolower (trim ($user['mail']))) . '?d=' . urlencode ($default_avatar) . '&amp;s=60';
 	} else {
 		$user['name'] = htmlspecialchars ($user_tmp);
 		$user['avatar'] = $default_avatar;
+	}
+	
+	if (strlen ($user['name']) > 25) {
+		$user['name'] = substr ($user['name'], 0, 25) . '...';
 	}
 	
 	return $user;

@@ -2,8 +2,6 @@
 
 class ErrorController extends ActionController {
 	public function indexAction () {
-		View::prependTitle (Translate::t ('error') . ' - ');
-		
 		switch (Request::param ('code')) {
 		case 403:
 			$this->view->code = 'Error 403 - Forbidden';
@@ -21,6 +19,7 @@ class ErrorController extends ActionController {
 			$this->view->code = 'Error 404 - Not found';
 		}
 		
+		View::prependTitle ($this->view->code . ' - ');
 		$this->view->logs = Request::param ('logs');
 	}
 }

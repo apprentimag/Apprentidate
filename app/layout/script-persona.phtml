@@ -24,30 +24,44 @@ if (signoutLink) {
 };
 
 navigator.id.watch({
-  loggedInUser: currentUser,
-  onlogin: function(assertion) {
-    // A user has logged in! Here you need to:
-    // 1. Send the assertion to your backend for verification and to create a session.
-    // 2. Update your UI.
-    $.ajax({
-      type: 'POST',
-      url: login_url,
-      data: {assertion: assertion},
-      success: function(res, status, xhr) { window.location.reload(); },
-      error: function(res, status, xhr) { alert("login failure" + res); }
-    });
-  },
-  onlogout: function() {
-    // A user has logged out! Here you need to:
-    // Tear down the user's session by redirecting the user or making a call to your backend.
-    // Also, make sure loggedInUser will get set to null on the next page load.
-    // (That's a literal JavaScript null. Not false, 0, or undefined. null.)
-    $.ajax({
-      type: 'POST',
-      url: logout_url,
-      success: function(res, status, xhr) { window.location.reload(); },
-      error: function(res, status, xhr) { alert("logout failure" + res); }
-    });
-  }
+	loggedInUser: currentUser,
+	onlogin: function(assertion) {
+		// A user has logged in! Here you need to:
+		// 1. Send the assertion to your backend for verification and to create a session.
+		// 2. Update your UI.
+		$.ajax({
+			type: 'POST',
+			url: login_url,
+			data: {assertion: assertion},
+			success: function(res, status, xhr) {
+				var res_obj = jQuery.parseJSON(res);
+				
+				if (res_obj.status == 'failure') {
+					alert (res_obj.reason);
+				} else if (res_obj.status == 'okay') {
+					window.location.reload();
+				}
+			},
+			error: function(res, status, xhr) {
+				alert("login failure : " + res);
+			}
+		});
+	},
+	onlogout: function() {
+		// A user has logged out! Here you need to:
+		// Tear down the user's session by redirecting the user or making a call to your backend.
+		// Also, make sure loggedInUser will get set to null on the next page load.
+		// (That's a literal JavaScript null. Not false, 0, or undefined. null.)
+		$.ajax({
+			type: 'POST',
+			url: logout_url,
+			success: function(res, status, xhr) {
+				window.location.reload();
+			},
+			error: function(res, status, xhr) {
+				alert("logout failure" + res);
+			}
+		});
+	}
 });
 </script>

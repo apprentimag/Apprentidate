@@ -34,7 +34,7 @@ class indexController extends ActionController {
 			Session::_param ('mail', $res['email']);
 		}
 		
-		echo $result;
+		$this->view->res = print_r ($result);
 	}
 	
 	public function logoutAction () {
