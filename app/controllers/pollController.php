@@ -39,6 +39,8 @@ class pollController extends ActionController {
 		} else {
 			View::prependTitle ('Ajouter un sondage à ' . $this->view->event->title () . ' - ');
 			
+			$this->view->missing = array ();
+			
 			if (Request::isPost ()) {
 				$title = trim (str_replace (' ', ' ', Request::param ('title')));
 				$choices = trim (str_replace (' ', ' ', Request::param ('choices', '')));

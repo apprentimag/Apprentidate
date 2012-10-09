@@ -96,6 +96,7 @@ form {
 	}
 		input[type="text"]#name_add_voter {
 			width: 200px;
+			margin: 0 0 0 auto;
 			text-align: right;
 		}
 		input[type="submit"]#submit_add_voter {

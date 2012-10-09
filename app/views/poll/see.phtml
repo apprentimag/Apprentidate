@@ -13,7 +13,7 @@
 				<tr>
 					<td class="none">&nbsp;</td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
-					<?php $nb_vote[$key] = 0; ?>
+					<?php $nb_votes[$key] = 0; ?>
 					<td id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></td>
 					<?php } ?>
 					<td class="none">&nbsp;</td>
@@ -36,7 +36,7 @@
 				<?php } ?>
 				
 				<tr>
-					<td><input id="name_add_voter" form="add_voter" type="text" name="voter" placeholder="Votre nom" /></td>
+					<td class="name_voter"><input id="name_add_voter" form="add_voter" type="text" name="voter" placeholder="Votre nom" /></td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<td><span class="for_checkbox"><input form="add_voter" type="checkbox" name="choices[]" value="<?php echo $key; ?>" /></span></td>
 					<?php } ?>
