@@ -27,6 +27,38 @@ h1, h2, h3 {
 	margin: 5px 0 15px;
 }
 
+/* TABLE */
+table {
+	width: 90%;
+	margin: auto;
+}
+	table td {
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+	}
+	table td.choice {
+		width: 200px;
+		background: #eee;
+		font-weight: bold;
+	}
+	table td.name_voter {
+		width: 200px;
+		padding: 0 10px 0 0;
+		text-align: right;
+		font-weight: bold;
+	}
+	table td.vote {
+		background: #D1F3D1;
+	}
+	table td.non_vote {
+		background: #FFCCCA;
+	}
+	table td.nb_votes.max {
+		background: #eee;
+		font-weight: bold;
+	}
+
 /* FORMULAIRES */
 form {
 	width: 350px;
@@ -59,6 +91,17 @@ form {
 		margin: 5px 0 5px;
 		padding: 5px 0;
 	}
+	form#add_voter {
+		display:none;
+	}
+		input[type="text"]#name_add_voter {
+			width: 200px;
+			text-align: right;
+		}
+		input[type="submit"]#submit_add_voter {
+			width: 40px;
+			font-weight: bold;
+		}
 	form.add_user {
 		display: table;
 		width: 300px;
@@ -104,26 +147,24 @@ body {
 
 header {
 	display: table;
-	height: 100px;
+	height: 150px;
 	width: 100%;
 	border-bottom: 1px solid #aaa;
-	background: url("img/dinner.jpg") center center no-repeat;
-	background-size: cover;
-	color: #333;
+	background: url("img/cover.png") bottom right no-repeat #447799;
+	/*background-size: cover;*/
+	color: #fff;
 }
 	header #title {
 		display: table-cell;
 		width: 30%;
-		background: rgba(255, 255, 255, 0.6);
 		text-align: center;
 		font-size: 200%;
 		vertical-align: middle;
-		text-shadow: 1px 1px 3px #aaa;
-		line-height: 100px;
+		line-height: 150px;
 	}
 		header #title a {
 			display: block;
-			color: #333;
+			color: #fff;
 		}
 			header #title a:hover {
 				text-decoration: none;
@@ -131,7 +172,6 @@ header {
 	header #subtitle {
 		display: table-cell;
 		padding: 0 50px;
-		background: rgba(255, 255, 255, 0.6);
 		font-size: 90%;
 		vertical-align: middle;
 		font-family: Palatino, "Times New Roman", serif;
@@ -160,11 +200,11 @@ header {
 			padding: 10px;
 			font-size: 90%;
 		}
-		#sidebar .participants {
+		#sidebar .box_sidebar {
 			margin: 20px 0;
 			border-top: 1px solid #aaa;
 		}
-			#sidebar .nbParticipants {
+			#sidebar .box_sidebar h2 {
 				width: 150px;
 				margin: -12px 0 0;
 				padding: 0 30px;
@@ -172,32 +212,33 @@ header {
 				color: #666;
 				font-weight: bold;
 				text-align: center;
+				font-size: 16px;
 			}
-			#sidebar .participants ul {
+			#sidebar .box_sidebar ul {
 				display: table;
 				width: 100%;
 				margin: 10px 0;
 				list-style: none;
 			}
-				#sidebar .participants ul li {
+				#sidebar .box_sidebar ul li {
 					display: table-row;
 					height: 60px;
 					text-align: center;
 				}
-					#sidebar .participants ul li span {
+					#sidebar .box_sidebar ul li span {
 						display: table-cell;
 						text-align: left;
 						vertical-align: middle;
 						font-weight: bold;
 					}
-						#sidebar .participants ul li span.avatar {
+						#sidebar .box_sidebar ul li span.center {
 							width: 100px;
 							text-align: center;
 						}
-							#sidebar .participants ul li span.avatar img {
+							#sidebar .box_sidebar ul li span.center img {
 								width: 42px;
 							}
-					#sidebar .participants ul li a.delete {
+					#sidebar .box_sidebar ul li a.delete {
 						display: none;
 						position: absolute;
 						margin: 0 0 0 -25px;
@@ -205,17 +246,18 @@ header {
 						background: url("img/delete.png") no-repeat center center;
 						text-decoration: none !important;
 					}
-						#sidebar .participants ul li:hover a.delete {
+						#sidebar .box_sidebar ul li:hover a.delete {
 							display: inline;
 						}
 
 .post {
-	padding: 20px 50px;
+	padding: 0 50px 40px;
 	color: #666;
 	font-size: 90%;
 	line-height: 170%;
 }
 	.post+.post {
+		padding: 20px 50px 40px;
 		border-top: 1px solid #eee;
 	}
 	.post h2 a.edit {

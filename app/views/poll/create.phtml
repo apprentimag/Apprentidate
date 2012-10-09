@@ -1,0 +1,21 @@
+<div id="main">
+	<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
+	
+	<form method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>">
+		<h2>Ajouter un sondage à<br /><em><?php echo $this->event->title (); ?></em></h2>
+		
+		<?php if (!empty ($this->missing)) { ?>
+		<div class="info error">Vous n'avez pas rempli tous les champs correctement!</div>
+		<?php } ?>
+		
+		<?php if (isset ($this->error)) { ?>
+		<div class="info error">Une erreur est survenue :(</div>
+		<?php } ?>
+		
+		<input <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titlePoll" placeholder="Titre du sondage" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
+		
+		<textarea <?php if (in_array ('choices', $this->missing)) { echo 'class="missing" '; } ?>name="choices" id="choicesPoll" placeholder="Choix du sondage (un par ligne)"><?php if (!empty ($this->values['choices'])) { echo $this->values['choices']; } ?></textarea>
+		
+		<input class="button" type="submit" value="Créer" />
+	</form>
+</div>

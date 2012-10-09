@@ -1,6 +1,28 @@
 <?php
 
 class eventController extends ActionController {
+	public function seeAction () {
+		$id = htmlspecialchars (Request::param ('id'));
+		
+		$eventDAO = new EventDAO ();
+		$this->view->event = $eventDAO->searchById ($id);
+		
+		if ($this->view->event === false) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		} else {
+			View::prependTitle ($this->view->event->title () . ' - ');
+		
+			$comDAO = new CommentDAO ();
+			$this->view->commentaires = array_reverse ($comDAO->listByEventId ($id));
+			
+			$pollDAO = new PollDAO ();
+			$this->view->polls = $pollDAO->listByEventId ($id);
+		}
+	}
+	
 	public function createAction () {
 		View::prependTitle ('Créer un évènement - ');
 		
@@ -119,25 +141,6 @@ class eventController extends ActionController {
 				403,
 				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 			);
-		}
-	}
-	
-	public function seeAction () {
-		$id = htmlspecialchars (Request::param ('id'));
-		
-		$eventDAO = new EventDAO ();
-		$this->view->event = $eventDAO->searchById ($id);
-		
-		if ($this->view->event === false) {
-			Error::error (
-				404,
-				array ('error' => array ('La page que vous cherchez n\'existe pas'))
-			);
-		} else {
-			View::prependTitle ($this->view->event->title () . ' - ');
-		
-			$comDAO = new CommentDAO ();
-			$this->view->commentaires = array_reverse ($comDAO->listByEventId ($id));
 		}
 	}
 	

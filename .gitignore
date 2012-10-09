@@ -2,3 +2,4 @@ log/application.log
 app/configuration/application.ini
 public/data/comments
 public/data/events
+public/data/polls

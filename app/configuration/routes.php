@@ -54,4 +54,24 @@ return array (
 		'action'     => 'see',
 		'params'     => array ('id')
 	),
+	
+	/////
+	array (
+		'route'      => '/ajouter_un_sondage\?e=([\d\w]{6})',
+		'controller' => 'poll',
+		'action'     => 'create',
+		'params'     => array ('id')
+	),
+	array (
+		'route'      => '/sondage/([\d\w]{6})',
+		'controller' => 'poll',
+		'action'     => 'see',
+		'params'     => array ('id')
+	),
+	array (
+		'route'      => '/sondage/voter\?e=([\d\w]{6})',
+		'controller' => 'poll',
+		'action'     => 'vote',
+		'params'     => array ('id')
+	),
 );

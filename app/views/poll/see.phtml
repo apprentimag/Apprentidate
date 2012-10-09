@@ -1,0 +1,71 @@
+<div id="main">
+	<div class="post">
+		<h1>Sondage <em><?php echo $this->poll->title (); ?></em> (<?php echo $this->event->title (); ?>)</h1>
+		<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
+		
+		<?php $nb_votes = array (); ?>
+		
+		<!-- formulaire pour ajouter un utilisateur, utilise html5 -->
+		<form id="add_voter" method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'vote', 'params' => array ('id' => $this->poll->id ()))); ?>">
+		</form>
+		<table>
+			<tbody>
+				<tr>
+					<td class="none">&nbsp;</td>
+					<?php foreach ($this->poll->choices () as $key => $c) { ?>
+					<?php $nb_vote[$key] = 0; ?>
+					<td id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></td>
+					<?php } ?>
+					<td class="none">&nbsp;</td>
+				</tr>
+				
+				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
+				<tr>
+					<td class="name_voter"><?php echo $key; ?></td>
+					<?php foreach ($this->poll->choices () as $key => $c) { ?>
+					<?php
+						$vote = in_array ($key, $choices);
+						if ($vote) {
+							$nb_votes[$key]++;
+						}
+					?>
+					<td class="<?php echo $vote ?  'vote' : 'non_vote'; ?>"><?php echo $vote ? 'ok' : '&nbsp;'; ?></td>
+					<?php } ?>
+					<td class="none">&nbsp;</td>
+				</tr>
+				<?php } ?>
+				
+				<tr>
+					<td><input id="name_add_voter" form="add_voter" type="text" name="voter" placeholder="Votre nom" /></td>
+					<?php foreach ($this->poll->choices () as $key => $c) { ?>
+					<td><span class="for_checkbox"><input form="add_voter" type="checkbox" name="choices[]" value="<?php echo $key; ?>" /></span></td>
+					<?php } ?>
+					<td><input id="submit_add_voter" class="button" form="add_voter" type="submit" value="+" /></td>
+				</tr>
+				
+				<?php if (count ($this->poll->voters ()) >= 5) { ?>
+				<tr>
+					<td class="none">&nbsp;</td>
+					<?php foreach ($this->poll->choices () as $key => $c) { ?>
+					<td id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></td>
+					<?php } ?>
+					<td class="none">&nbsp;</td>
+				</tr>
+				<?php } ?>
+				
+				<tr>
+					<td class="total">&nbsp;</td>
+					<?php
+						ksort ($nb_votes);
+						$max = max ($nb_votes);
+					?>
+					<?php foreach ($nb_votes as $key => $nb) { ?>
+					<td class="nb_votes<?php echo ($nb >= $max) ? ' max' : ''; ?>"><?php echo $nb; ?></td>
+					<?php } ?>
+					<td class="none">&nbsp;</td>
+				<tr>
+					
+			</tbody>
+		</table>
+	</div>
+</div>
