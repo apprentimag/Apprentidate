@@ -45,6 +45,7 @@ navigator.id.watch({
 				}
 			},
 			error: function(res, status, xhr) {
+				console.error("onlogin : login failure : res = " + res + " status = " + status + " xhr = " + xhr);
 				alert("login failure : " + res);
 			}
 		});
