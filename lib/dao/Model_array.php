@@ -21,15 +21,18 @@ class Model_array extends Model_txt {
 	public function __construct ($nameFile) {
 		parent::__construct ($nameFile);
 		
-		while (!flock ($this->file, LOCK_SH));
-		$this->array = include ($nameFile);
-		flock ($this->file, LOCK_UN);
+		if (!$this->getLock ('read')) {
+			throw new PermissionDeniedException ($this->filename);
+		} else {
+			$this->array = include ($this->filename);
+			$this->releaseLock ();
 		
-		if (!is_array ($this->array)) {
-			$this->array = array ();
+			if (!is_array ($this->array)) {
+				$this->array = array ();
+			}
+		
+			$this->array = $this->decodeArray ($this->array);
 		}
-		
-		$this->array = $this->decodeArray ($this->array);
 	}	
 	
 	/**
@@ -37,16 +40,18 @@ class Model_array extends Model_txt {
 	 * @param $array le tableau php à enregistrer
 	 **/
 	public function writeFile ($array) {
-		while (!flock ($this->file, LOCK_EX));
+		if (!$this->getLock ('write')) {
+			throw new PermissionDeniedException ($this->namefile);
+		} else {
+			$this->erase ();
 		
-		$this->erase ();
+			$this->writeLine ('<?php');
+			$this->writeLine ('return ', false);
+			$this->writeArray ($array);
+			$this->writeLine (';');
 		
-		$this->writeLine ('<?php');
-		$this->writeLine ('return ', false);
-		$this->writeArray ($array);
-		$this->writeLine (';');
-		
-		flock ($this->file, LOCK_UN);
+			$this->releaseLock ();
+		}
 	}
 	
 	private function writeArray ($array, $profondeur = 0) {
@@ -90,5 +95,28 @@ class Model_array extends Model_txt {
 		}
 		
 		return $new_array;
+	}
+	
+	private function getLock ($type) {
+		if ($type == 'write') {
+			$lock = LOCK_EX;
+		} else {
+			$lock = LOCK_SH;
+		}
+	
+		$count = 1;
+		while (!flock ($this->file, $lock) && $count <= 50) {
+			$count++;
+		}
+		
+		if ($count >= 50) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private function releaseLock () {
+		flock ($this->file, LOCK_UN);
 	}
 }
