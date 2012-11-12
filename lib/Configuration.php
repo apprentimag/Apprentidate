@@ -62,7 +62,7 @@ class Configuration {
 	 * Getteurs
 	 */
 	public static function selApplication () {
-		return self::$sel_application . $_SERVER['REMOTE_ADDR'];
+		return self::$sel_application;
 	}
 	public static function environment () {
 		return self::$environment;

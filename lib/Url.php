@@ -12,7 +12,6 @@ class Url {
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *                    $url['protocol'] = protocole à utiliser (http par défaut)
-	 *                    $url['anchor'] = une ancre correspondant à un id
 	 *             ou comme une chaîne de caractère
 	 * @return l'url formatée
 	 */
@@ -44,10 +43,6 @@ class Url {
 			$url_string .= $url;
 		}
 		
-		if (isset ($url['anchor']) && !empty ($url['anchor'])) {
-			$url_string .= '#' . $url['anchor'];
-		}
-		
 		return $url_string;
 	}
 	
@@ -58,24 +53,24 @@ class Url {
 	 */
 	private static function printUri ($url) {
 		$uri = '';
-		$separator = '?';
+		$separator = '/?';
 		
 		if (isset ($url['c'])
 		 && $url['c'] != Request::defaultControllerName ()) {
 			$uri .= $separator . 'c=' . $url['c'];
-			$separator = '&';
+			$separator = '&amp;';
 		}
 		
 		if (isset ($url['a'])
 		 && $url['a'] != Request::defaultActionName ()) {
 			$uri .= $separator . 'a=' . $url['a'];
-			$separator = '&';
+			$separator = '&amp;';
 		}
 		
 		if (isset ($url['params'])) {
 			foreach ($url['params'] as $key => $param) {
 				$uri .= $separator . $key . '=' . $param;
-				$separator = '&';
+				$separator = '&amp;';
 			}
 		}
 		
