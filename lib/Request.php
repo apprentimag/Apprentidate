@@ -117,7 +117,7 @@ class Request {
 		$url = Url::checkUrl ($url);
 		
 		if ($redirect) {
-			header ('Location: ' . Url::display ($url));
+			header ('Location: ' . Url::display ($url, 'php'));
 			exit ();
 		} else {
 			self::$reseted = true;
