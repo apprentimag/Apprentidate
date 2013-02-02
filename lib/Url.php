@@ -13,9 +13,10 @@ class Url {
 	 *                    $url['params'] = tableau des paramètres supplémentaires
 	 *                    $url['protocol'] = protocole à utiliser (http par défaut)
 	 *             ou comme une chaîne de caractère
+	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'url formatée
 	 */
-	public static function display ($url = array ()) {
+	public static function display ($url = array (), $encodage = 'html') {
 		$url = self::checkUrl ($url);
 		
 		$url_string = '';
@@ -37,7 +38,7 @@ class Url {
 			if (Configuration::useUrlRewriting ()) {
 				$url_string .= $router->printUriRewrited ($url);
 			} else {
-				$url_string .= self::printUri ($url);
+				$url_string .= self::printUri ($url, $encodage);
 			}
 		} else {
 			$url_string .= $url;
@@ -49,28 +50,35 @@ class Url {
 	/**
 	 * Construit l'URI d'une URL sans url rewriting
 	 * @param l'url sous forme de tableau
+	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri ($url) {
+	private static function printUri ($url, $encodage) {
 		$uri = '';
 		$separator = '/?';
+		
+		if($encodage == 'html') {
+			$and = '&amp;';
+		} else {
+			$and = '&';
+		}
 		
 		if (isset ($url['c'])
 		 && $url['c'] != Request::defaultControllerName ()) {
 			$uri .= $separator . 'c=' . $url['c'];
-			$separator = '&amp;';
+			$separator = $and;
 		}
 		
 		if (isset ($url['a'])
 		 && $url['a'] != Request::defaultActionName ()) {
 			$uri .= $separator . 'a=' . $url['a'];
-			$separator = '&amp;';
+			$separator = $and;
 		}
 		
 		if (isset ($url['params'])) {
 			foreach ($url['params'] as $key => $param) {
 				$uri .= $separator . $key . '=' . $param;
-				$separator = '&amp;';
+				$separator = $and;
 			}
 		}
 		
