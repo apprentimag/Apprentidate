@@ -1,21 +1,23 @@
-<div id="main">
-	<div class="post">
+<div id="index">
+	<div class="row">
 		<h3>Créons nos évènements et déterminons une date qui corresponde à tout le monde</h3>
 		Doodle, sapu cépalibre,<br />
 		Facebook nous vole nos données,<br />
 		Sur Google+ y a personne (en plus de nous voler nos données),<br />
 		Framadate, on y comprend rien, en plus c'est pas beau.<br />
 		<br />
-		Alors voici, pour votre plus grand plaisir, <strong>Apprentidate</strong>, enfin sur vos écrans !
+		Alors voici, pour votre plus grand plaisir, Apprentidate, enfin sur vos écrans !
 	</div>
-</div>
+	<div class="row">
+		<div id="create_event" class="span3">
+			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un évènement</a>
+		</div>
+		<!--<div id="create_poll" class="span3">
+			<a class="btn btn-primary" href="#"><i class="icon-white icon-ok-sign"></i> Créer un sondage</a>
+		</div>-->
 
-<div id="sidebar">
-	<div id="create_event">
-		<a class="button" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">Créer un évènement</a>
 	</div>
-	
-	<div class="info notice">
+	<div class="row">
 		<?php if ($this->nbEvents === 0) { ?>
 		Aucun évènement n'a encore jamais été créé !
 		<?php } else { ?>

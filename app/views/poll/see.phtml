@@ -1,4 +1,4 @@
-<div id="main">
+<div id="poll_see">
 	<div class="post">
 		<h1>Sondage <em><?php echo $this->poll->title (); ?></em> (<?php echo $this->event->title (); ?>)</h1>
 		<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
@@ -8,7 +8,7 @@
 		<!-- formulaire pour ajouter un utilisateur, utilise html5 -->
 		<form id="add_voter" method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'vote', 'params' => array ('id' => $this->poll->id ()))); ?>">
 		</form>
-		<table>
+		<table class="table">
 			<tbody>
 				<tr>
 					<td class="none">&nbsp;</td>
@@ -21,7 +21,7 @@
 				
 				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
 				<tr>
-					<td class="name_voter"><?php echo $key; ?></td>
+					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?></td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<?php
 						$vote = in_array ($key, $choices);
@@ -40,7 +40,7 @@
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<td><span class="for_checkbox"><input form="add_voter" type="checkbox" name="choices[]" value="<?php echo $key; ?>" /></span></td>
 					<?php } ?>
-					<td><input id="submit_add_voter" class="button" form="add_voter" type="submit" value="+" /></td>
+					<td><button id="submit_add_voter" form="add_voter" class="btn btn-primary" type="submit"><i class="icon-white icon-plus"></i></button></td>
 				</tr>
 				
 				<?php if (count ($this->poll->voters ()) >= 5) { ?>

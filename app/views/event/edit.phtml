@@ -1,4 +1,4 @@
-<div id="main">
+<div id="event_edit">
 	<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
 	
 	<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">
@@ -7,17 +7,28 @@
 		<?php if (!empty ($this->missing)) { ?>
 		<div class="info error">Vous n'avez pas rempli tous les champs correctement !</div>
 		<?php } ?>
-		
-		<input <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" placeholder="Titre de l'évènement" value="<?php echo $this->event->title (); ?>"/>
-		
-		<input <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" placeholder="Votre nom <adresse@mail>" value="<?php echo $this->event->author (true); ?>" />
-		
-		<input <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php echo date ('Y-m-d', $this->event->date ()); ?>" />
-		
-		<input type="text" name="place" id="placeEvent" placeholder="Lieu (optionnel)"  value="<?php echo $this->event->place (); ?>" />
-		
-		<textarea name="description" id="descEvent" placeholder="Description de l'évènement (optionnelle)"><?php echo $this->event->description (true); ?></textarea>
-		
-		<input class="button" type="submit" value="Valider" />
+		<div id="row">
+			<label>Titre de l'évènement</label>
+			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" value="<?php echo $this->event->title (); ?>"/>
+		</div>
+		<div id="row">
+			<label>Votre nom</label>
+			<input class="span6" <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" value="<?php echo $this->event->author (true); ?>" />
+		</div>
+		<div id="row">
+			<label>Date</label>
+			<input class="span6" <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php echo date ('Y-m-d', $this->event->date ()); ?>" />
+		</div>
+		<div id="row">
+			<label>Lieu</label>
+			<input class="span6" type="text" name="place" id="placeEvent" value="<?php echo $this->event->place (); ?>" />
+		</div>
+		<div id="row">
+			<label>Description de l'évènement</label>
+			<textarea class="span6" name="description" id="descEvent"><?php echo $this->event->description (true); ?></textarea>
+		</div>
+		<div id="row">
+			<button type="submit" class="span2 btn btn-primary">Valider</button>
+		</div>
 	</form>
 </div>
