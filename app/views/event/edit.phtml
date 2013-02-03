@@ -1,7 +1,7 @@
 <div id="event_edit">
 	<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
 	
-	<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">
+	<form class="form-horizontal" method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">
 		<h2>Éditer un évènement</h2>
 		
 		<?php if (!empty ($this->missing)) { ?>

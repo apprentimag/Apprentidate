@@ -35,3 +35,8 @@ footer {
 
 #event_see #rightside {
 }
+
+#event_see ul.nav {
+	height: 300px;
+	overflow: scroll;
+}
