@@ -11,15 +11,15 @@
 		<div class="info error">Une erreur est survenue :(</div>
 		<?php } ?>
 		<div class="">
-			<label>Titre du sondage</label>
+			<label for="titlePoll">Titre du sondage</label>
 			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titlePoll" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
 		</div>
 		<div id="">
-			<label>Date d'expiration des inscriptions</label>
+			<label for="expirationdateEvent">Date d'expiration des inscriptions</label>
 			<input class="span6" <?php if (in_array ('expirationdate', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d', time ()); } ?>" />
 		</div>
 		<div class="">
-			<label>Choix du sondage (un par ligne)</label>
+			<label for="choicesPoll">Choix du sondage (un par ligne)</label>
 			<textarea class="span6" <?php if (in_array ('choices', $this->missing)) { echo 'class="missing" '; } ?>name="choices" id="choicesPoll"><?php if (!empty ($this->values['choices'])) { echo $this->values['choices']; } ?></textarea>
 		</div>
 		<div class="">

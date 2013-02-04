@@ -8,27 +8,27 @@
 		<div class="info error">Vous n'avez pas rempli tous les champs correctement !</div>
 		<?php } ?>
 		<div id="">
-			<label>Titre de l'évènement</label>
+			<label for="titleEvent">Titre de l'évènement</label>
 			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" value="<?php echo $this->event->title (); ?>"/>
 		</div>
 		<div id="">
-			<label>Votre nom</label>
+			<label for="authorEvent">Votre nom</label>
 			<input class="span6" <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent" value="<?php echo $this->event->author (true); ?>" />
 		</div>
 		<div id="">
-			<label>Date</label>
+			<label for="dateEvent">Date</label>
 			<input class="span6" <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php echo date ('Y-m-d', $this->event->date ()); ?>" />
 		</div>
 		<div id="">
-			<label>Date d'expiration des inscriptions</label>
+			<label for="expirationdateEvent">Date d'expiration des inscriptions</label>
 			<input class="span6" <?php if (in_array ('expirationdate', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="expirationdate" id="expirationdateEvent" value="<?php echo date ('Y-m-d', $this->event->expirationdate ()); ?>" />
 		</div>
 		<div id="">
-			<label>Lieu</label>
+			<label for="placeEvent">Lieu</label>
 			<input class="span6" type="text" name="place" id="placeEvent" value="<?php echo $this->event->place (); ?>" />
 		</div>
 		<div id="">
-			<label>Description de l'évènement</label>
+			<label for="descEvent">Description de l'évènement</label>
 			<textarea class="span6" name="description" id="descEvent"><?php echo $this->event->description (true); ?></textarea>
 		</div>
 		<div id="">

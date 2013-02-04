@@ -26,11 +26,11 @@
 		
 			<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_comment', 'params' => array ('id' => $this->event->id ()))); ?>">
 				<div class="row">
-					<label>Votre nom</label>
+					<label for="user">Votre nom</label>
 					<input type="text" name="user" id="user" class="span6"/>
 				</div>
 				<div class="row">
-					<label>Votre commentaire</label>		
+					<label for="content">Votre commentaire</label>		
 					<textarea name="content" id="content" class="span6"></textarea>
 				</div>
 				<div class="row">
