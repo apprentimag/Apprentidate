@@ -6,7 +6,7 @@
 		<?php echo self::headStyle(); ?>
 		<?php echo self::headScript(); ?>
 	</head>
-	<body>
+	
 <header class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -31,12 +31,12 @@
 	</div>
 </header>
 
+<body>
+	<div class="container">
+		<?php $this->render (); ?>
+	</div>
 
-<div class="container">
-<?php $this->render (); ?>
-</div>
-
-<?php $this->partial ('script-persona'); ?>
+	<?php $this->partial ('script-persona'); ?>
 
 	</body>
 </html>

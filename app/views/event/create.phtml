@@ -1,30 +1,34 @@
 <div id="event_create">
-	<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">
+	<form  method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">
 		<h2>Créer un nouvel évènement</h2>
 		<?php if (isset ($this->error)) { ?>
 		<div class="info error row">Une erreur est survenue :(</div>
 		<?php } ?>
-		<div class="row">
+		<div class="">
 			<label>Titre de l'évènement</label>
 			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
 		</div>
-		<div class="row">
+		<div class="">
 			<label>Votre nom</label>
 			<input class="span6" <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent"  <?php if (!empty ($this->values['author'])) { echo 'value="' . $this->values['author'] . '"'; } ?>/>
 		</div>
-		<div class="row">
+		<div class="">
 			<label>Date</label>
 			<input class="span6" <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['date']; } else { echo date ('Y-m-d', time ()); } ?>" />
 		</div>
-		<div class="row">
+		<div id="">
+			<label>Date d'expiration des inscriptions</label>
+			<input class="span6" <?php if (in_array ('expirationdate', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d', time ()); } ?>" />
+		</div>
+		<div class="">
 			<label>Lieu</label>
 			<input class="span6" type="text" name="place" id="placeEvent" <?php if (!empty ($this->values['place'])) { echo 'value="' . $this->values['place'] . '"'; } ?>/>
 		</div>
-		<div class="row">
+		<div class="">
 			<label class="control-label">Description de l'évènement</label>
 			<textarea class="span6" name="description" id="descEvent"><?php if (!empty ($this->values['description'])) { echo $this->values['description']; } ?></textarea>
 		</div>
-		<div class="row">
+		<div class="">
 			<button type="submit" class="span2 btn btn-primary">Créer</button>
 			<?php if (!empty ($this->missing)) { ?>
 			<div class="info error span6">Vous n'avez pas rempli tous les champs correctement!</div>

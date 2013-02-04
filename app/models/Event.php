@@ -1,19 +1,20 @@
 <?php
 
 class Event extends Model {
-	private $id;
+	private $idEvent;
 	private $title;
 	private $author;
 	private $date;
 	private $place;
 	private $description;
+	private $expirationdate;
 	private $participants = array ();
 	
 	public function __construct () {
 	}
 	
 	public function id () {
-		return $this->id;
+		return $this->idEvent;
 	}
 	public function title () {
 		return $this->title;
@@ -45,9 +46,12 @@ class Event extends Model {
 			return array_map ('parse_user', $this->participants);
 		}
 	}
+	public function expirationdate () {
+		return $this->expirationdate;
+	}
 	
 	public function _id ($id) {
-		$this->id = $id;
+		$this->idEvent = $id;
 	}
 	public function _title ($value) {
 		$this->title = $value;
@@ -71,70 +75,99 @@ class Event extends Model {
 		
 		$this->participants = $value;
 	}
+	public function _expirationdate($value) {
+		$this->expirationdate = $value;
+	}
 }
 
-class EventDAO extends Model_array {
-	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/events');
-	}
+class EventDAO extends Model_pdo {
 	
 	public function addEvent ($values) {
-		$id = $this->generateKey ($values['title']);
-		
-		if (!isset ($this->array[$id])) {
-			$this->array[$id] = array ();
-		
-			foreach ($values as $key => $value) {
-				$this->array[$id][$key] = $value;
-			}
-		
-			$this->writeFile($this->array);
-		
-			return $id;
+		$sql = 'INSERT INTO events (title, author, date, place, description, expirationdate) VALUES(?, ?, ?, ?, ?, ?)';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$values['title'],
+			$values['author'],
+			$values['date'],
+			$values['place'],
+			$values['description'],
+			$values['expirationdate'],
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return $this->bd->lastInsertId();
 		} else {
 			return false;
 		}
 	}
 	
 	public function updateEvent ($id, $values) {
-		foreach ($values as $key => $value) {
-			$this->array[$id][$key] = $value;
-		}
-		
-		$this->writeFile($this->array);
-	}
-	
-	public function deleteEvent ($id) {
-		unset ($this->array[$id]);
-		$this->writeFile($this->array);
-	}
-	
-	public function listEvents () {
-		$list = $this->array;
-		
-		if (!is_array ($list)) {
-			$list = array ();
-		}
-		
-		return HelperEvent::daoToEvent ($list);
-	}
-	
-	public function searchById ($id) {
-		$list = HelperEvent::daoToEvent ($this->array);
-		
-		if (isset ($list[$id])) {
-			return $list[$id];
+		$sql = 'UPDATE events SET title=?, author=?, date=?, place=?, description=?, expirationdate=? WHERE idEvent=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$values['title'],
+			$values['author'],
+			$values['date'],
+			$values['place'],
+			$values['description'],
+			$values['expirationdate'],
+			$id
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	private function generateKey ($sel) {
-		return small_hash ($sel . time () . Configuration::selApplication ());
+	public function deleteEvent ($id) {
+		$sql = 'DELETE FROM events WHERE idEvent=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public function listEvents () {
+		$sql = 'SELECT * FROM events ORDER BY date';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+
+		return HelperEvent::daoToEvent ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+	
+	public function searchById ($id) {
+		$sql = 'SELECT * FROM events WHERE idEvent=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($id);
+
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$values = HelperEvent::daoToEvent ($res);
+
+		if (isset ($values[0])) {
+			return $values[0];
+		} else {
+			return false;
+		}
 	}
 	
 	public function count () {
-		return count ($this->array);
+		$sql = 'SELECT COUNT(*) AS count FROM events';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
 	}
 }
 
@@ -148,13 +181,13 @@ class HelperEvent {
 
 		foreach ($listDAO as $key => $dao) {
 			$list[$key] = new Event ();
-			$list[$key]->_id ($key);
+			$list[$key]->_id ($dao['idEvent']);
 			$list[$key]->_title ($dao['title']);
 			$list[$key]->_author ($dao['author']);
 			$list[$key]->_date ($dao['date']);
 			$list[$key]->_place ($dao['place']);
 			$list[$key]->_description ($dao['description']);
-			$list[$key]->_participants ($dao['participants']);
+			$list[$key]->_expirationdate ($dao['expirationdate']);
 		}
 
 		return $list;

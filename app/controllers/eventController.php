@@ -7,6 +7,9 @@ class eventController extends ActionController {
 		$eventDAO = new EventDAO ();
 		$this->view->event = $eventDAO->searchById ($id);
 		
+		$guestDAO = new GuestDAO ();
+		$this->view->guests = $guestDAO->listByEventId($id);
+		
 		if ($this->view->event === false) {
 			Error::error (
 				404,
@@ -34,7 +37,7 @@ class eventController extends ActionController {
 			$date = trim (str_replace (' ', ' ', Request::param ('date')));
 			$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
 			$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
-			
+			$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
 			$required = array (
 				'title' => $title,
 				'author' => $author,
@@ -47,13 +50,19 @@ class eventController extends ActionController {
 				$this->view->missing[] = 'date';
 			}
 			
+			$timestampexpiration = strtotime($expirationdate);
+			if ($timestampexpiration == false) {
+				$this->view->missing[] = 'expirationdate';
+			}
+				
 			$values = array (
 				'title' => htmlspecialchars ($title),
 				'author' => $author,
 				'date' => $timestamp,
 				'place' => htmlspecialchars ($place),
 				'description' => htmlspecialchars ($desc),
-				'participants' => array ($author)
+				'participants' => array ($author),
+				'expirationdate' => $timestampexpiration
 			);
 			
 			if (empty ($this->view->missing)) {
@@ -102,7 +111,8 @@ class eventController extends ActionController {
 				$date = trim (str_replace (' ', ' ', Request::param ('date')));
 				$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
 				$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
-			
+				$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
+				
 				$required = array (
 					'title' => $title,
 					'author' => $author,
@@ -114,14 +124,20 @@ class eventController extends ActionController {
 				if ($timestamp == false) {
 					$this->view->missing[] = 'date';
 				}
-			
+				
+				$timestampexpiration = strtotime($expirationdate);
+				if ($timestampexpiration == false) {
+					$this->view->missing[] = 'expirationdate';
+				}
+				
 				$values = array (
 					'title' => htmlspecialchars ($title),
 					'author' => $author,
 					'date' => $timestamp,
 					'place' => htmlspecialchars ($place),
 					'description' => htmlspecialchars ($desc),
-					'participants' => array ($author)
+					'participants' => array ($author),
+					'expirationdate' => $timestampexpiration
 				);
 			
 				if (empty ($this->view->missing)) {
@@ -149,16 +165,11 @@ class eventController extends ActionController {
 		$user = trim (str_replace (' ', ' ', Request::param ('user')));
 		
 		if ($id != false && $user != false) {
-			$eventDAO = new EventDAO ();
-			$event = $eventDAO->searchById ($id);
-			$parts = $event->participants (true);
-			$parts[] = $user;
-			
-			$values = array (
-				'participants' => $parts
-			);
-			
-			$eventDAO->updateEvent ($id, $values);
+			$guestDAO = new GuestDAO ();
+			$guestDAO->addGuest(array (
+			'idEvent' => $id,
+			'name' => $user
+			));
 		}
 		
 		Request::forward (array (

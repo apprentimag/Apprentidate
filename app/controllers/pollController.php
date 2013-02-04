@@ -44,7 +44,8 @@ class pollController extends ActionController {
 			if (Request::isPost ()) {
 				$title = trim (str_replace (' ', ' ', Request::param ('title')));
 				$choices = trim (str_replace (' ', ' ', Request::param ('choices', '')));
-			
+				$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
+				
 				$required = array (
 					'title' => $title,
 					'choices' => $choices
@@ -54,9 +55,14 @@ class pollController extends ActionController {
 				// gère les choix
 				$choices = preg_replace ('#(.+)(\n\s\n)(.+)#', "\\1\n\\3", $choices);
 				$array_choices = explode ("\n", $choices);
-			
+				
+				$timestampexpiration = strtotime($expirationdate);
+				if ($timestampexpiration == false) {
+					$this->view->missing[] = 'expirationdate';
+				}
 				$values = array (
 					'title' => htmlspecialchars ($title),
+					'expirationdate' => $timestampexpiration,
 					'choices' => $array_choices,
 					'idEvent' => $id,
 					'voters' => array ()
@@ -66,7 +72,7 @@ class pollController extends ActionController {
 					$pollDAO = new PollDAO ();
 				
 					$idPoll = $pollDAO->addPoll ($values);
-				
+	
 					if ($idPoll !== false) {
 						Request::forward (array (
 							'c' => 'event',
@@ -90,7 +96,7 @@ class pollController extends ActionController {
 		$id = htmlspecialchars (Request::param ('id'));
 		$voter = Request::param ('voter');
 		$choices = Request::param ('choices');
-		
+
 		if ($voter != false) {
 			$pollDAO = new PollDAO ();
 			$values = array (

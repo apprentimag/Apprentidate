@@ -22,6 +22,7 @@ class App_FrontController extends FrontController {
 		include (APP_PATH . '/models/Event.php');
 		include (APP_PATH . '/models/Comment.php');
 		include (APP_PATH . '/models/Poll.php');
+		include (APP_PATH . '/models/Guest.php');
 	}
 	
 	private function loadScriptsAndStyles () {

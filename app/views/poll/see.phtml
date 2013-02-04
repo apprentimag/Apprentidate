@@ -18,7 +18,7 @@
 					<?php } ?>
 					<td class="none">&nbsp;</td>
 				</tr>
-				
+
 				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
 				<tr>
 					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?></td>
@@ -29,7 +29,7 @@
 							$nb_votes[$key]++;
 						}
 					?>
-					<td class="<?php echo $vote ?  'vote' : 'non_vote'; ?>"><?php echo $vote ? 'ok' : '&nbsp;'; ?></td>
+					<td class="<?php echo $vote ?  'vote' : 'non_vote'; ?>"><?php echo $vote ? '<i class="icon-ok"></i>' : '<i class="icon-remove-sign"></i>'; ?></td>
 					<?php } ?>
 					<td class="none">&nbsp;</td>
 				</tr>

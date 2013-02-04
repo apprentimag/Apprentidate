@@ -1,5 +1,6 @@
 body {
 	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	padding-bottom: 50px;
 }
 
 footer {
@@ -37,6 +38,6 @@ footer {
 }
 
 #event_see ul.nav {
-	height: 300px;
-	overflow: scroll;
+	max-height: 300px;
+	overflow: auto;
 }

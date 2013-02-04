@@ -79,7 +79,7 @@
 		</div>
 	
 		<?php
-			$parts = $this->event->participants ();
+			$parts = $this->guests;
 			$pluriel = (count ($parts) > 1) ? 's' : '';
 		?>
 	
@@ -88,8 +88,8 @@
 			<ul class="nav unstyled">
 			<?php foreach ($parts as $key => $participant) { ?>
 				<li>
-					<span class="center"><img src="<?php echo $participant['avatar']; ?>" alt="avatar" /></span>
-					<span><?php echo $participant['name']; ?></span>
+					<span class="center"><img src="data/img/avatar_default.png" alt="avatar" /></span>
+					<span><?php echo $participant->name(); ?></span>
 				
 					<?php if (is_logged ()) { ?>
 					<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $key))); ?>">&nbsp;</a>
