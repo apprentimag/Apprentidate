@@ -24,7 +24,7 @@
 					<?php } else { ?>
 						<li><a id="signout" href="#">Sign out - <?php echo Session::param ('mail'); ?></a></li>
 					<?php } ?>
-					<li><a href="#">À propos</a></li>
+					<li><a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'about')); ?>">À propos</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

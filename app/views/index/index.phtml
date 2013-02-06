@@ -11,18 +11,21 @@
 	<div class="row">
 		<div id="create_event" class="span3">
 			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un évènement</a>
+			<p><?php if ($this->nbEvents === 0) { ?>
+			Aucun évènement n'a encore jamais été créé !
+			<?php } else { ?>
+			<?php $pluriel = ($this->nbEvents > 1) ? 's' : '';  ?>
+			Déjà <?php echo $this->nbEvents; ?> évènement<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
+			<?php } ?></p>
 		</div>
 		<div id="create_poll" class="span3">
-			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un sondage</a>
+			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'createalone')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un sondage</a>
+			<p><?php if ($this->nbPolls === 0) { ?>
+			Aucun sondage n'a encore jamais été créé !
+			<?php } else { ?>
+			<?php $pluriel = ($this->nbPolls > 1) ? 's' : '';  ?>
+			Déjà <?php echo $this->nbPolls; ?> sondage<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
+			<?php } ?></p>
 		</div>
-
-	</div>
-	<div class="row">
-		<?php if ($this->nbEvents === 0) { ?>
-		Aucun évènement n'a encore jamais été créé !
-		<?php } else { ?>
-		<?php $pluriel = ($this->nbEvents > 1) ? 's' : '';  ?>
-		Déjà <?php echo $this->nbEvents; ?> évènement<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
-		<?php } ?>
 	</div>
 </div>

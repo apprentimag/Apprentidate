@@ -1,7 +1,14 @@
 <div id="poll_see">
 	<div class="post">
-		<h1>Sondage <em><?php echo $this->poll->title (); ?></em> (<?php echo $this->event->title (); ?>)</h1>
+		<h1>Sondage <em><?php echo $this->poll->title (); ?></em>
+		<?php if($this->event != NULL) {?>
+		(<?php echo $this->event->title (); ?>)
+		</h1>
 		<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
+		<?php } else {?>
+		</h1>
+		<?php } ?>
+
 		
 		<?php $nb_votes = array (); ?>
 		

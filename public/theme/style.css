@@ -12,6 +12,16 @@ footer {
 	margin-top: 50px;
 }
 
+#create_event p {
+	font-size: 12px;
+	padding-left:10px;
+}
+
+#create_poll p {
+	font-size: 12px;
+	padding-left:10px;
+}
+
 #event_see img {
 	height: 50px;
 	width: 50px;

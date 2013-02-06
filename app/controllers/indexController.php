@@ -9,6 +9,8 @@ class indexController extends ActionController {
 		
 		$eventDAO = new EventDAO ();
 		$this->view->nbEvents = $eventDAO->count ();
+		$pollDAO = new PollDAO ();
+		$this->view->nbPolls = $pollDAO->count ();
 	}
 	
 	public function loginAction () {
@@ -40,5 +42,9 @@ class indexController extends ActionController {
 	public function logoutAction () {
 		$this->view->_useLayout (false);
 		Session::_param ('mail');
+	}
+	
+	public function aboutAction () {
+		
 	}
 }

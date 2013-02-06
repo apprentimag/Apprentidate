@@ -13,14 +13,19 @@ class pollController extends ActionController {
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
 		} else {
-			$eventDAO = new EventDAO ();
-			$this->view->event = $eventDAO->searchById ($this->view->poll->idEvent ());
+			$idevent = $this->view->poll->idEvent ();
 			
-			if ($this->view->event === false) {
-				Error::error (
-					404,
-					array ('error' => array ('La page que vous cherchez n\'existe pas'))
-				);
+			if($idevent != NULL) {
+				$eventDAO = new EventDAO ();
+			
+				$this->view->event = $eventDAO->searchById ($this->view->poll->idEvent ());
+			
+				if ($this->view->event === false) {
+					Error::error (
+						404,
+						array ('error' => array ('La page que vous cherchez n\'existe pas'))
+					);
+				}
 			}
 		}
 	}
@@ -75,9 +80,9 @@ class pollController extends ActionController {
 	
 					if ($idPoll !== false) {
 						Request::forward (array (
-							'c' => 'event',
+							'c' => 'poll',
 							'a' => 'see',
-							'params' => array ('id' => $id)
+							'params' => array ('id' => $idPoll)
 						), true);
 					} else {
 						$this->view->error = true;
@@ -88,6 +93,60 @@ class pollController extends ActionController {
 						'choices' => $choices
 					);
 				}
+			}
+		}
+	}
+	
+	public function createaloneAction () {
+		View::prependTitle ('Créer un sondage - ');
+		$this->view->missing = array ();
+			
+		if (Request::isPost ()) {
+			$title = trim (str_replace (' ', ' ', Request::param ('title')));
+			$choices = trim (str_replace (' ', ' ', Request::param ('choices', '')));
+			$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
+			
+			$required = array (
+				'title' => $title,
+				'choices' => $choices
+			);
+			$this->view->missing = check_missing ($required);
+			
+			// gère les choix
+			$choices = preg_replace ('#(.+)(\n\s\n)(.+)#', "\\1\n\\3", $choices);
+			$array_choices = explode ("\n", $choices);
+			
+			$timestampexpiration = strtotime($expirationdate);
+			if ($timestampexpiration == false) {
+				$this->view->missing[] = 'expirationdate';
+			}
+			$values = array (
+				'title' => htmlspecialchars ($title),
+				'expirationdate' => $timestampexpiration,
+				'choices' => $array_choices,
+				'idEvent' => NULL,
+				'voters' => array ()
+			);
+		
+			if (empty ($this->view->missing)) {
+				$pollDAO = new PollDAO ();
+			
+				$idPoll = $pollDAO->addPoll ($values);
+
+				if ($idPoll !== false) {
+					Request::forward (array (
+						'c' => 'poll',
+						'a' => 'see',
+						'params' => array ('id' => $idPoll)
+					), true);
+				} else {
+					$this->view->error = true;
+				}
+			} else {
+				$this->view->values = array (
+					'title' => $title,
+					'choices' => $choices
+				);
 			}
 		}
 	}
