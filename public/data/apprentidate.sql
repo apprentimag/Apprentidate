@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 04, 2013 at 06:59 PM
+-- Generation Time: Feb 06, 2013 at 07:03 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.3.10-1ubuntu3.5
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `choices` (
   `idPoll` int(11) NOT NULL,
   `choice` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idChoice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS `guests` (
 
 CREATE TABLE IF NOT EXISTS `polls` (
   `idPoll` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` int(11) NOT NULL,
+  `idEvent` int(11) DEFAULT NULL,
   `expirationdate` int(11) NOT NULL,
   `title` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idPoll`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
