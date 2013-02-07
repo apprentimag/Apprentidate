@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `choices` (
   `idPoll` int(11) NOT NULL,
   `choice` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idChoice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `date` int(11) NOT NULL,
   `content` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idComment`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `description` text COLLATE utf8_bin NOT NULL,
   `expirationdate` int(11) NOT NULL,
   PRIMARY KEY (`idEvent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `guests` (
   `idEvent` int(11) NOT NULL,
   `name` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idGuest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `polls` (
   `expirationdate` int(11) NOT NULL,
   `title` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idPoll`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

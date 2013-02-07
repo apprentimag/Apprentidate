@@ -1,7 +1,7 @@
 <div id="poll_see">
 	<div class="post">
 		<h1>Sondage <em><?php echo $this->poll->title (); ?></em>
-		<?php if($this->event != NULL) {?>
+		<?php if(isset($this->event)) {?>
 		(<?php echo $this->event->title (); ?>)
 		</h1>
 		<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
