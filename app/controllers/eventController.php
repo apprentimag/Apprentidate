@@ -97,66 +97,66 @@ class eventController extends ActionController {
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
-		}
-		
-		$this->view->missing = array ();
-		
-		$author = $this->view->event->author ();
-		if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) {
-			View::prependTitle ('Éditer `' . $this->view->event->title () . '` - ');
-			
-			if (Request::isPost ()) {
-				$title = trim (str_replace (' ', ' ', Request::param ('title')));
-				$author = trim (str_replace (' ', ' ', Request::param ('author')));
-				$date = trim (str_replace (' ', ' ', Request::param ('date')));
-				$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
-				$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
-				$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
-				
-				$required = array (
-					'title' => $title,
-					'author' => $author,
-					'date' => $date
-				);
-				$this->view->missing = check_missing ($required);
-				
-				$timestamp = strtotime ($date);
-				if ($timestamp == false) {
-					$this->view->missing[] = 'date';
-				}
-				
-				$timestampexpiration = strtotime($expirationdate);
-				if ($timestampexpiration == false) {
-					$this->view->missing[] = 'expirationdate';
-				}
-				
-				$values = array (
-					'title' => htmlspecialchars ($title),
-					'author' => $author,
-					'date' => $timestamp,
-					'place' => htmlspecialchars ($place),
-					'description' => htmlspecialchars ($desc),
-					'participants' => array ($author),
-					'expirationdate' => $timestampexpiration
-				);
-			
-				if (empty ($this->view->missing)) {
-					$eventDAO = new EventDAO ();
-				
-					$eventDAO->updateEvent ($id, $values);
-					
-					Request::forward (array (
-						'c' => 'event',
-						'a' => 'see',
-						'params' => array ('id' => $id)
-					), true);
-				}
-			}
 		} else {
-			Error::error (
-				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
-			);
+			$this->view->missing = array ();
+		
+			$author = $this->view->event->author ();
+			if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) {
+				View::prependTitle ('Éditer `' . $this->view->event->title () . '` - ');
+			
+				if (Request::isPost ()) {
+					$title = trim (str_replace (' ', ' ', Request::param ('title')));
+					$author = trim (str_replace (' ', ' ', Request::param ('author')));
+					$date = trim (str_replace (' ', ' ', Request::param ('date')));
+					$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
+					$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
+					$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
+				
+					$required = array (
+						'title' => $title,
+						'author' => $author,
+						'date' => $date
+					);
+					$this->view->missing = check_missing ($required);
+				
+					$timestamp = strtotime ($date);
+					if ($timestamp == false) {
+						$this->view->missing[] = 'date';
+					}
+				
+					$timestampexpiration = strtotime($expirationdate);
+					if ($timestampexpiration == false) {
+						$this->view->missing[] = 'expirationdate';
+					}
+				
+					$values = array (
+						'title' => htmlspecialchars ($title),
+						'author' => $author,
+						'date' => $timestamp,
+						'place' => htmlspecialchars ($place),
+						'description' => htmlspecialchars ($desc),
+						'participants' => array ($author),
+						'expirationdate' => $timestampexpiration
+					);
+			
+					if (empty ($this->view->missing)) {
+						$eventDAO = new EventDAO ();
+				
+						$eventDAO->updateEvent ($id, $values);
+					
+						Request::forward (array (
+							'c' => 'event',
+							'a' => 'see',
+							'params' => array ('id' => $id)
+						), true);
+					}
+				}
+			} else {
+				Error::error (
+					403,
+					array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				);
+			}
 		}
 	}
 	
