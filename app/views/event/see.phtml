@@ -92,7 +92,7 @@
 					<span><?php echo $participant->name(); ?></span>
 				
 					<?php if (is_logged ()) { ?>
-					<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $key))); ?>">&nbsp;</a>
+					<span><a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>">supprimer</a></span>
 					<?php } ?>
 				</li>
 			<?php } ?>

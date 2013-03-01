@@ -32,7 +32,7 @@ function check_missing (array $required) {
 
 // permet de parser un nom utilisateur type "Prénom <adresse@mail.com>"
 function parse_user ($user_tmp) {
-	$user = array ();
+	/*$user = array ();
 	$default_avatar = Url::display ('/data/img/avatar_default.png');
 	$pattern = '/(.+) <([a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*\@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4})>/';
 	
@@ -49,6 +49,14 @@ function parse_user ($user_tmp) {
 		$user['name'] = substr ($user['name'], 0, 25) . '...';
 	}
 	
+	return $user;*/
+
+	$default_avatar = Url::display ('/data/img/avatar_default.png');
+	$user = array (
+		'name' => htmlentities($user_tmp),
+		'avatar' => $default_avatar
+	);
+
 	return $user;
 }
 

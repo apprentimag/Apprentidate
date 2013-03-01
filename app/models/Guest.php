@@ -49,7 +49,7 @@ class GuestDAO extends Model_pdo {
 	
 	
 	public function deleteGuest ($id) {
-		$sql = 'DELETE comments WHERE idGuest=?';
+		$sql = 'DELETE FROM guests WHERE idGuest=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (

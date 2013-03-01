@@ -180,24 +180,12 @@ class eventController extends ActionController {
 	}
 	
 	public function delete_userAction () {
-		$idEvent = htmlspecialchars (Request::param ('idEvent'));
+		$idEvent = Request::param ('idEvent');
+		$id = Request::param ('id');
 		
-		if (is_logged ()) {
-			$id = Request::param ('id');
-		
-			if ($idEvent != false && $id !== false) {
-				$eventDAO = new EventDAO ();
-				$event = $eventDAO->searchById ($idEvent);
-				$parts = $event->participants (true);
-			
-				unset ($parts[$id]);
-			
-				$values = array (
-					'participants' => $parts
-				);
-			
-				$eventDAO->updateEvent ($idEvent, $values);
-			}
+		if (is_logged() && $id != false) {
+			$guestDAO = new GuestDAO ();
+			$guestDAO->deleteGuest ($id);
 		}
 		
 		Request::forward (array (

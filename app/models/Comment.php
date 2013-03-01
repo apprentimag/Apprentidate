@@ -89,7 +89,7 @@ class CommentDAO extends Model_pdo {
 	}
 	
 	public function deleteComment ($id) {
-		$sql = 'DELETE comments WHERE idComment=?';
+		$sql = 'DELETE FROM comments WHERE idComment=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
