@@ -13,8 +13,8 @@ class Configuration {
 	/**
 	 * VERSION est la version actuelle de MINZ
 	 */
-	const VERSION = '1.1.0';
-	
+	const VERSION = '1.2.0';
+
 	/**
 	 * valeurs possibles pour l'"environment"
 	 * SILENT rend l'application muette (pas de log)

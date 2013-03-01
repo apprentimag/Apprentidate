@@ -142,7 +142,7 @@ class Router {
 		$route = $this->searchRoute ($url);
 		
 		if ($route !== false) {
-			return $this->replaceParams ($route, $url);
+			return $this->replaceParams ($route, $url['params']);
 		}
 		
 		return '';
@@ -195,50 +195,15 @@ class Router {
 	}
 	
 	/**
-	 * Remplace les éléments de la route par les valeurs contenues dans $url
-	 * TODO Fonction très sale ! À revoir (preg_replace ?)
+	 * Remplace les éléments de la route par les valeurs contenues dans $params
 	 */
-	private function replaceParams ($route, $url) {
-		$uri = '';
-		$in_brackets = false;
-		$backslash = false;
-		$num_param = 0;
-		
-		// parcourt caractère par caractère
-	 	for ($i = 0; $i < strlen ($route['route']); $i++) {
-			// on détecte qu'on rentre dans des parenthèses
-			// on va devoir changer par la valeur d'un paramètre
-	 		if ($route['route'][$i] == '(' && !$backslash) {
-	 			$in_brackets = true;
-	 		}
-			// on sort des parenthèses
-			// ok, on change le paramètre maintenant
-	 		if ($route['route'][$i] == ')' && !$backslash) {
-	 			$in_brackets = false;
-	 			$param = $route['params'][$num_param];
- 				$uri .= $url['params'][$param];
- 				$num_param++;
-	 		}
-	 		
-	 		if (!$in_brackets
-	 		 && ($route['route'][$i] != '\\' || $backslash)
-	 		 && ($route['route'][$i] != '(' || $backslash)
-	 		 && ($route['route'][$i] != ')' || $backslash)
-	 		 && ($route['route'][$i] != '?' || $backslash)) {
-				// on est pas dans les parenthèses
-				// on recopie simplement le caractère
- 				$uri .= $route['route'][$i];
-	 		}
-	 		
-	 		// on détecte un backslash, on n'en veut pas
-	 		// sauf si on en avait déjà un juste avant
-	 		if ($route['route'][$i] == '\\' && !$backslash) {
-	 			$backslash = true;
-	 		} else {
-	 			$backslash = false;
-	 		}
-	 	}
-	 	
-	 	return $uri;
+	private function replaceParams ($route, $params_replace) {
+		$uri = $route['route'];
+		$params = array();
+		foreach($route['params'] as $param) {
+			$uri = preg_replace('#\((.+)\)#U', $params_replace[$param], $uri, 1);
+		}
+
+		return stripslashes($uri);
 	 }
 }
