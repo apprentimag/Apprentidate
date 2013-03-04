@@ -29,6 +29,8 @@ set_include_path (get_include_path ()
                  . PATH_SEPARATOR
                  . LIB_PATH
                  . PATH_SEPARATOR
+                 . LIB_PATH . '/minz'
+                 . PATH_SEPARATOR
                  . APP_PATH);
 
 require_once(APP_PATH . '/App_FrontController.php');
