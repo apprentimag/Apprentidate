@@ -1,53 +1,35 @@
-body {
-	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-	padding-bottom: 50px;
+#index {
+	margin: 50px 0;
 }
-
-footer {
-	margin-top: 150px;
+#index .row {
 	text-align: center;
 }
 
-#index .row {
-	margin-top: 50px;
+.event {
+	margin: 20px 0;
+	list-style: none;
+}
+	.event p {
+		margin: 10px 0;
+	}
+.commentaires .media-list {
+	margin: 50px 0;
+}
+.avatar {
+	max-width: 50px;
+	margin: 5px;
 }
 
-#create_event p {
-	font-size: 12px;
-	padding-left:10px;
-}
 
-#create_poll p {
-	font-size: 12px;
-	padding-left:10px;
-}
-
-#event_see img {
-	height: 50px;
-	width: 50px;
-}
-
-#event_see #commentaires {
-	margin-top: 25px;
-}
-
-#event_see .comment {
-	margin-top: 25px;
-}
-
-#event_see .comment .content {
-	margin-top: 10px;
-	text-indent: 25px;
-}
-
-#event_see .polllist {
-	font-size: 16px;
-}
-
-#event_see #rightside {
-}
-
-#event_see ul.nav {
-	max-height: 300px;
+.participants .media-list {
+	max-height: 400px;
+	padding: 10px 0;
 	overflow: auto;
+}
+.participants .avatar {
+	max-width: 50px;
+	max-height: 40px;
+}
+.max {
+	font-weight: bold;
 }

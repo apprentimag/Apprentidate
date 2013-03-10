@@ -1,31 +1,37 @@
 <div id="index">
 	<div class="row">
-		<h3>Créons nos évènements et déterminons une date qui corresponde à tout le monde</h3>
-		Doodle, sapu cépalibre,<br />
+		<h2>Organisez vos évènements !</h2>
+		<p class="lead">Doodle, sapu cépalibre,<br />
 		Facebook nous vole nos données,<br />
 		Sur Google+ y a personne (en plus de nous voler nos données),<br />
 		Framadate, on y comprend rien, en plus c'est pas beau.<br />
 		<br />
-		Alors voici, pour votre plus grand plaisir, Apprentidate, enfin sur vos écrans !
+		Alors voici, pour votre plus grand plaisir, Apprentidate, enfin sur vos écrans !</p>
 	</div>
+
+	<hr />
+
 	<div class="row">
-		<div id="create_event" class="span3">
-			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un évènement</a>
+		<div id="create_event" class="span3 offset2">
+			<a class="btn btn-primary btn-large" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un évènement</a>
+			<p>Vous pouvez organiser des évènements, en discuter entre vous, lister les participants et même ajouter des sondages par la suite...</p>
+			<!--
 			<p><?php if ($this->nbEvents === 0) { ?>
 			Aucun évènement n'a encore jamais été créé !
 			<?php } else { ?>
 			<?php $pluriel = ($this->nbEvents > 1) ? 's' : '';  ?>
 			Déjà <?php echo $this->nbEvents; ?> évènement<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
-			<?php } ?></p>
+			<?php } ?></p>-->
 		</div>
-		<div id="create_poll" class="span3">
-			<a class="btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'createalone')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un sondage</a>
-			<p><?php if ($this->nbPolls === 0) { ?>
+		<div id="create_poll" class="span3 offset2">
+			<a class="btn btn-primary btn-large" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create')); ?>"><i class="icon-white icon-ok-sign"></i> Créer un sondage</a>
+			<p>... mais peut-être avez-vous simplement besoin de créer un simple sondage pour vous décider ?</p>
+			<!--<p><?php if ($this->nbPolls === 0) { ?>
 			Aucun sondage n'a encore jamais été créé !
 			<?php } else { ?>
 			<?php $pluriel = ($this->nbPolls > 1) ? 's' : '';  ?>
 			Déjà <?php echo $this->nbPolls; ?> sondage<?php echo $pluriel; ?> créé<?php echo $pluriel; ?> !
-			<?php } ?></p>
+			<?php } ?></p>-->
 		</div>
 	</div>
 </div>

@@ -13,9 +13,11 @@ class Guest extends Model {
 	public function idEvent () {
 		return $this->id_event;
 	}
-	
 	public function name ($raw = false) {
 		return $this->name;
+	}
+	public function avatar () {
+		return 'https://secure.gravatar.com/avatar/' . md5($this->name) . '?d=identicon';
 	}
 
 	public function _id ($id) {

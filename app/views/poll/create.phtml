@@ -1,29 +1,42 @@
 <div id="poll_create">
+	<?php if($this->event) { ?>
+	<h2>Ajouter un sondage pour l'évènement <em><?php echo $this->event->title (); ?></em></h2>
 	<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'see', 'params' => array ('id' => $this->event->id ()))); ?>">← Retour à l'évènement</a>
-	<form method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>">
-		<h2>Ajouter un sondage pour l'évènement <em><?php echo $this->event->title (); ?></em></h2>
-		
+	<?php } else { ?>
+	<h2>Créer un sondage</h2>
+	<a href="<?php echo Url::display (); ?>">← Retour à l'accueil</a>
+	<?php } ?>
+
+	<form class="form-horizontal" method="post" action="<?php echo $this->event ? Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))) : Url::display (array ('c' => 'poll', 'a' => 'createalone')); ?>">
 		<?php if (!empty ($this->missing)) { ?>
-		<div class="info error">Vous n'avez pas rempli tous les champs correctement!</div>
+		<div class="alert alert-error">Vous n'avez pas rempli tous les champs correctement!</div>
 		<?php } ?>
-		
 		<?php if (isset ($this->error)) { ?>
-		<div class="info error">Une erreur est survenue :(</div>
+		<div class="alert alert-error">Une erreur est survenue :(</div>
 		<?php } ?>
-		<div class="">
-			<label for="titlePoll">Titre du sondage</label>
-			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titlePoll" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
+
+		<div class="control-group <?php if (in_array ('title', $this->missing)) { echo ' error'; } ?>">
+			<label class="control-label" for="titlePoll">Titre du sondage</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="title" id="titlePoll" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
+			</div>
 		</div>
-		<div id="">
-			<label for="expirationdateEvent">Date d'expiration des inscriptions</label>
-			<input class="span6" <?php if (in_array ('expirationdate', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d', time ()); } ?>" />
+		<div class="control-group">
+			<label class="control-label" for="expirationdateEvent">Date d'expiration des inscriptions</label>
+			<div class="controls">
+				<input class="input-xlarge" type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['expirationdateEvent'])) { echo $this->values['expirationdateEvent']; } ?>" />
+			</div>
 		</div>
-		<div class="">
-			<label for="choicesPoll">Choix du sondage (un par ligne)</label>
-			<textarea class="span6" <?php if (in_array ('choices', $this->missing)) { echo 'class="missing" '; } ?>name="choices" id="choicesPoll"><?php if (!empty ($this->values['choices'])) { echo $this->values['choices']; } ?></textarea>
+		<div class="control-group <?php if (in_array ('choices', $this->missing)) { echo ' error'; } ?>">
+			<label class="control-label" for="choicesPoll">Choix du sondage (un par ligne)</label>
+			<div class="controls">
+				<textarea class="input-xlarge" name="choices" id="choicesPoll"><?php if (!empty ($this->values['choices'])) { echo $this->values['choices']; } ?></textarea>
+			</div>
 		</div>
-		<div class="">
-			<button type="submit" class="span2 btn btn-primary">Créer</button>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary input-xlarge">Créer</button>
+			</div>
 		</div>
 	</form>
 </div>

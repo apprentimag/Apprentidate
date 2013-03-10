@@ -1,64 +1,86 @@
 <div class="row" id="event_see">
 	<div class="span8">
-		<div class="row">
+		<ul class="event">
 			<?php $author = $this->event->author (); ?>
-			<div class="row">
-				<h2 class="span"><?php echo $this->event->title (); ?></h2>
-				<?php if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) { ?><a class="span" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>">éditer</a><?php } ?>
-			</div>
+			<li>
+				<h2><?php echo $this->event->title (); ?></h2>
+			</li>
+
+			<li><i class="icon-calendar"></i> Le <strong><?php echo timestamptodate ($this->event->date (), false); ?></strong></li>
+
 			<?php $place = $this->event->place (); ?>
-			<div class="row"><i class="icon-calendar"></i><strong><?php echo timestamptodate ($this->event->date (), false); ?></strong></div>
-			<div class="row"><?php if (!empty ($place)) { echo '<i class="icon-home"></i><strong>' . $place . '</strong>'; } ?></div>
-			<div class="row"><i class="icon-user"></i><em><?php echo $author['name']; ?></em></div>
+			<?php if (!empty ($place)) { ?>
+			<li>
+				<i class="icon-home"></i> à <strong><?php echo $place; ?></strong>
+			</li>
+			<?php } ?>
+
+			<li><i class="icon-user"></i> par <strong><?php echo $author['name']; ?></strong></li>
+
+			<?php if (is_logged ()) { ?>
+			<li>
+				<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-edit"></i> Éditer</a>
+			</li>
+			<?php } ?>
 		
 			<?php $desc = $this->event->description ();
 			if (!empty ($desc)) { ?>
-			<div class="row"><?php echo $desc; ?></div>
+			<li><p class="well"><?php echo $desc; ?></p></li>
 			<?php } ?>
-		</div>
+		</ul>
+
+		<hr />
 	
-		<div class="row" id="commentaires">
+		<div class="commentaires">
 			<?php
 				$nb = count ($this->commentaires);
 				$pluriel = ($nb > 1) ? 's' : '';
 			?>
 			<h3><?php echo $nb; ?> commentaire<?php echo $pluriel; ?></h3>
-		
-			<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_comment', 'params' => array ('id' => $this->event->id ()))); ?>">
-				<div class="row">
-					<label for="user">Votre nom</label>
-					<input type="text" name="user" id="user" class="span6"/>
-				</div>
-				<div class="row">
-					<label for="content">Votre commentaire</label>		
-					<textarea name="content" id="content" class="span6"></textarea>
-				</div>
-				<div class="row">
-					<button type="submit" class="span2 btn btn-primary">Commenter</button>
-				</div>
-			</form>
-		
-			<?php $i = 0; foreach ($this->commentaires as $c) { $i++; ?>
-			<div class="row comment">
-				<?php $author = $c->author (); ?>
-				<div class="row">
-					<img class="span4" src="<?php echo $author['avatar']; ?>" alt="avatar" />
-					<div class="span4">
-						<div class="row"><i class="icon-user"></i><em><?php echo $author['name']; ?></em></div>
-						<div class="row"><i class="icon-calendar"></i><?php echo timestamptodate ($c->date ()); ?></div>
+
+			<form method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_comment', 'params' => array ('id' => $this->event->id ()))); ?>" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="user">Votre nom</label>
+					<div class="controls">
+						<input type="text" name="user" id="user" class="input-xlarge" />
 					</div>
 				</div>
-				<div class="content">
-					<?php echo $c->content (); ?>
+				<div class="control-group">
+					<label class="control-label" for="content">Votre commentaire</label>
+					<div class="controls">	
+						<textarea name="content" id="content" class="input-xlarge" ></textarea>
+					</div>
 				</div>
-			
-				<?php if (is_logged ()) { ?>
-				<a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>">&nbsp;</a>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn input-xlarge">Commenter</button>
+					</div>
+				</div>
+			</form>
+
+			<ul class="media-list">
+				<?php $i = 0; foreach ($this->commentaires as $c) { $i++; ?>
+				<?php $author = $c->author (); ?>
+				<li class="media">
+					<img class="media-object pull-left avatar img-polaroid" src="<?php echo $author['avatar']; ?>" alt="avatar" />
+					<div class="media-body">
+						<ul class="media-heading">
+							<li><i class="icon-user"></i> <?php echo $author['name']; ?></li>
+							<li><i class="icon-calendar"></i> <?php echo timestamptodate ($c->date ()); ?></li>
+							<?php if (is_logged ()) { ?>
+							<li><a class="btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>"><i class="icon-remove"></i> Supprimer</a></li>
+							<?php } ?>
+						</ul>
+
+						<p><?php echo $c->content (); ?></p>
+					</div>
+				</li>
 				<?php } ?>
-			</div>
-			<?php } ?>
+			</ul>
 		</div>
 	</div>
+
+
 	<div class="span4" id="rightside">
 		<h3>Sondages</h3>
 		<?php if (count ($this->polls) > 0) { ?>
@@ -74,9 +96,14 @@
 			</ul>
 		</div>
 		<?php } ?>
+
+		<?php if (is_logged ()) { ?>
 		<div class="row" id="create_event">
-			<a class="span2 btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>">Ajouter un sondage </a>
+			<a class="span2 btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-ok-sign icon-white"></i> Créer un sondage</a>
 		</div>
+		<?php } ?>
+
+		<hr />
 	
 		<?php
 			$parts = $this->guests;
@@ -85,22 +112,25 @@
 	
 		<div class="participants box_sidebar">
 			<h3>Participant<?php echo $pluriel; ?> (<?php echo count($parts); ?>)</h3>
-			<ul class="nav unstyled">
+			<ul class="media-list">
 			<?php foreach ($parts as $key => $participant) { ?>
-				<li>
-					<span class="center"><img src="data/img/avatar_default.png" alt="avatar" /></span>
-					<span><?php echo $participant->name(); ?></span>
-				
-					<?php if (is_logged ()) { ?>
-					<span><a class="delete" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>">supprimer</a></span>
-					<?php } ?>
+				<li class="media">
+					<img class="media-object pull-left avatar img-polaroid" src="<?php echo $participant->avatar(); ?>" alt="avatar" />
+
+					<div class="media-body">
+						<h4 class="media-heading"><?php echo $participant->name(); ?></h4>
+
+						<?php if (is_logged ()) { ?>
+						<a class="delete btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>"><i class="icon-remove"></i> Supprimer</a>
+						<?php } ?>
+					</div>
 				</li>
 			<?php } ?>
 			</ul>
 		
-			<form class="form-search" method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_user', 'params' => array ('id' => $this->event->id ()))); ?>">
+			<form class="form-inline" method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_user', 'params' => array ('id' => $this->event->id ()))); ?>">
 				<div class="input-append">
-					<input type="text" class="search-query" name="user" id="user_sidebar" placeholder="Votre nom" />
+					<input type="text" class="input-block-level" name="user" id="user_sidebar" placeholder="Votre nom" />
 					<button class="btn btn-primary" type="submit"><i class="icon-white icon-plus"></i></button>
 				</div>
 			</form>

@@ -1,38 +1,56 @@
 <div id="event_create">
-	<form  method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">
-		<h2>Créer un nouvel évènement</h2>
+	<h2>Créer un nouvel évènement</h2>
+	<a href="<?php echo Url::display (); ?>">← Retour à l'accueil</a>
+
+	<form class="form-horizontal"  method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'create')); ?>">
 		<?php if (isset ($this->error)) { ?>
-		<div class="info error row">Une erreur est survenue :(</div>
+		<div class="alert alert-error">Une erreur est survenue :(</div>
 		<?php } ?>
-		<div class="titleEvent">
-			<label for="">Titre de l'évènement</label>
-			<input class="span6" <?php if (in_array ('title', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="title" id="titleEvent" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
+
+		<?php if (!empty ($this->missing)) { ?>
+		<div class="alert alert-error">Vous n'avez pas rempli tous les champs correctement!</div>
+		<?php } ?>
+
+		<div class="control-group<?php if (in_array ('title', $this->missing)) { echo ' error'; } ?>">
+			<label class="control-label" for="titleEvent">Titre de l'évènement</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="title" id="titleEvent" <?php if (!empty ($this->values['title'])) { echo 'value="' . $this->values['title'] . '"'; } ?>/>
+			</div>
 		</div>
-		<div class="">
-			<label for="authorEvent">Votre nom</label>
-			<input class="span6" <?php if (in_array ('author', $this->missing)) { echo 'class="missing" '; } ?>type="text" name="author" id="authorEvent"  <?php if (!empty ($this->values['author'])) { echo 'value="' . $this->values['author'] . '"'; } ?>/>
+		<div class="control-group<?php if (in_array ('author', $this->missing)) { echo ' error'; } ?>">
+			<label class="control-label" for="authorEvent">Votre nom</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="author" id="authorEvent"  <?php if (!empty ($this->values['author'])) { echo 'value="' . $this->values['author'] . '"'; } ?>/>
+			</div>
 		</div>
-		<div class="">
-			<label for="dateEvent">Date</label>
-			<input class="span6" <?php if (in_array ('date', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="date" id="dateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['date']; } else { echo date ('Y-m-d', time ()); } ?>" />
+		<div class="control-group<?php if (in_array ('date', $this->missing)) { echo ' error'; } ?>">
+			<label class="control-label" for="dateEvent">Date</label>
+			<div class="controls">
+				<input class="input-xlarge" type="date" name="date" id="dateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['date']; } else { echo date ('Y-m-d', time ()); } ?>" />
+			</div>
 		</div>
-		<div id="">
-			<label for="expirationdateEvent">Date d'expiration des inscriptions</label>
-			<input class="span6" <?php if (in_array ('expirationdate', $this->missing)) { echo 'class="missing" '; } ?>type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d', time ()); } ?>" />
+		<div class="control-group">
+			<label class="control-label" for="expirationdateEvent">Date d'expiration des inscriptions</label>
+			<div class="controls">
+				<input class="input-xlarge"type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['expirationdateEvent'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d', time ()); } ?>" />
+			</div>
 		</div>
-		<div class="">
-			<label for="placeEvent">Lieu</label>
-			<input class="span6" type="text" name="place" id="placeEvent" <?php if (!empty ($this->values['place'])) { echo 'value="' . $this->values['place'] . '"'; } ?>/>
+		<div class="control-group">
+			<label class="control-label" for="placeEvent">Lieu</label>
+			<div class="controls">
+				<input class="input-xlarge" type="text" name="place" id="placeEvent" <?php if (!empty ($this->values['place'])) { echo 'value="' . $this->values['place'] . '"'; } ?>/>
+			</div>
 		</div>
-		<div class="">
-			<label  for="descEvent">Description de l'évènement</label>
-			<textarea class="span6" name="description" id="descEvent"><?php if (!empty ($this->values['description'])) { echo $this->values['description']; } ?></textarea>
+		<div class="control-group">
+			<label class="control-label" for="descEvent">Description de l'évènement</label>
+			<div class="controls">
+				<textarea class="input-xlarge" name="description" id="descEvent"><?php if (!empty ($this->values['description'])) { echo $this->values['description']; } ?></textarea>
+			</div>
 		</div>
-		<div class="">
-			<button type="submit" class="span2 btn btn-primary">Créer</button>
-			<?php if (!empty ($this->missing)) { ?>
-			<div class="info error span6">Vous n'avez pas rempli tous les champs correctement!</div>
-			<?php } ?>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary input-xlarge">Créer</button>
+			</div>
 		</div>
 
 	</form>

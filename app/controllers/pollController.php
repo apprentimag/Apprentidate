@@ -35,17 +35,13 @@ class pollController extends ActionController {
 		
 		$eventDAO = new EventDAO ();
 		$this->view->event = $eventDAO->searchById ($id);
+		$this->view->missing = array ();
 		
 		if ($this->view->event === false) {
-			Error::error (
-				404,
-				array ('error' => array ('La page que vous cherchez n\'existe pas'))
-			);
+			View::prependTitle ('Créer un sondage - ');
 		} else {
 			View::prependTitle ('Ajouter un sondage à ' . $this->view->event->title () . ' - ');
-			
-			$this->view->missing = array ();
-			
+
 			if (Request::isPost ()) {
 				$title = trim (str_replace (' ', ' ', Request::param ('title')));
 				$choices = trim (str_replace (' ', ' ', Request::param ('choices', '')));
@@ -100,7 +96,7 @@ class pollController extends ActionController {
 	public function createaloneAction () {
 		View::prependTitle ('Créer un sondage - ');
 		$this->view->missing = array ();
-			
+
 		if (Request::isPost ()) {
 			$title = trim (str_replace (' ', ' ', Request::param ('title')));
 			$choices = trim (str_replace (' ', ' ', Request::param ('choices', '')));
@@ -117,9 +113,9 @@ class pollController extends ActionController {
 			$array_choices = explode ("\n", $choices);
 			
 			$timestampexpiration = strtotime($expirationdate);
-			if ($timestampexpiration == false) {
+			/*if ($timestampexpiration == false) {
 				$this->view->missing[] = 'expirationdate';
-			}
+			}*/
 			$values = array (
 				'title' => htmlspecialchars ($title),
 				'expirationdate' => $timestampexpiration,
@@ -127,10 +123,10 @@ class pollController extends ActionController {
 				'idEvent' => NULL,
 				'voters' => array ()
 			);
-		
+
 			if (empty ($this->view->missing)) {
 				$pollDAO = new PollDAO ();
-			
+				
 				$idPoll = $pollDAO->addPoll ($values);
 
 				if ($idPoll !== false) {

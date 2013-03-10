@@ -51,7 +51,8 @@ function parse_user ($user_tmp) {
 	
 	return $user;*/
 
-	$default_avatar = Url::display ('/data/img/avatar_default.png');
+	//$default_avatar = Url::display ('/data/img/avatar_default.png');
+	$default_avatar = 'https://secure.gravatar.com/avatar/' . md5($user_tmp) . '?d=identicon';
 	$user = array (
 		'name' => htmlentities($user_tmp),
 		'avatar' => $default_avatar

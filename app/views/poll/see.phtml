@@ -15,17 +15,18 @@
 		<!-- formulaire pour ajouter un utilisateur, utilise html5 -->
 		<form id="add_voter" method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'vote', 'params' => array ('id' => $this->poll->id ()))); ?>">
 		</form>
-		<table class="table">
-			<tbody>
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td class="none">&nbsp;</td>
+					<th class="none">&nbsp;</th>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<?php $nb_votes[$key] = 0; ?>
-					<td id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></td>
+					<th id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></th>
 					<?php } ?>
-					<td class="none">&nbsp;</td>
+					<th class="none">&nbsp;</th>
 				</tr>
-
+			</thead>
+			<tbody>
 				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
 				<tr>
 					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?></td>
@@ -60,7 +61,7 @@
 				</tr>
 				<?php } ?>
 				
-				<tr>
+				<tr class="info">
 					<td class="total">&nbsp;</td>
 					<?php
 						ksort ($nb_votes);
