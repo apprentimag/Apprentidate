@@ -4,14 +4,23 @@
 #index .row {
 	text-align: center;
 }
-
+#version {
+	text-align: center;
+	font-size: 8px;
+	margin-top: 100px;
+}
+.navbar {
+	margin-left:auto;
+	margin-right: auto;
+	width: 75%;
+}
 .event {
 	margin: 20px 0;
 	list-style: none;
 }
-	.event p {
-		margin: 10px 0;
-	}
+.event p {
+	margin: 10px 0;
+}
 .commentaires .media-list {
 	margin: 50px 0;
 }

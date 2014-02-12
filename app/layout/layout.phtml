@@ -7,37 +7,39 @@
 		<?php echo self::headStyle(); ?>
 	</head>
 	<body>
-<header class="navbar navbar-inverse navbar-static-top">
-	<div class="navbar-inner">
-		<div class="container">
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
 			<a class="brand" href="<?php echo Url::display (); ?>"><?php echo Configuration::title (); ?></a>
-			<div class="nav-collapse collapse">
-				<ul class="nav">
-					<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'index' ? 'class="active"' : ''; ?>>
-						<a href="<?php echo Url::display (); ?>">Accueil</a>
-					</li>
-					<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'about' ? 'class="active"' : ''; ?>>
-						<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'about')); ?>">À propos</a>
-					</li>
-					<?php if (!is_logged ()) { ?>
-					<li><a id="signin" href="#">Connectez vous</a></li>
-					<?php } else { ?>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							<?php echo Session::param ('mail'); ?>
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Profil</a></li>
-							<li><a id="signout" href="#">Déconnexion</a></li>
-						</ul>
-					</li>
-					<?php } ?>
-				</ul>
-			</div><!--/.nav-collapse -->
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'index' ? 'class="active"' : ''; ?>>
+					<a href="<?php echo Url::display (); ?>">Accueil</a>
+				</li>
+				<?php if (!is_logged ()) { ?>
+				<li><a id="signin" href="#">Connectez vous</a></li>
+				<?php } else { ?>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<?php echo Session::param ('mail'); ?>
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Profil</a></li>
+						<li><a id="signout" href="#">Déconnexion</a></li>
+					</ul>
+				</li>
+				<?php } ?>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'about' ? 'class="active"' : ''; ?>>
+					<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'about')); ?>">À propos</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-</header>
+</nav>
 
 	<div class="container">
 		<?php $this->render (); ?>
@@ -45,5 +47,6 @@
 		</div>
 	<?php echo self::headScript(); ?>
 	<?php $this->partial ('script-persona'); ?>
+	<p id="version">0.9.0-alpha</p>
 	</body>
 </html>
