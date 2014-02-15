@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 4.0.6deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2013 at 07:03 PM
--- Server version: 5.5.29
--- PHP Version: 5.3.10-1ubuntu3.5
+-- Generation Time: Feb 15, 2014 at 04:52 PM
+-- Server version: 5.5.35-0ubuntu0.13.10.2
+-- PHP Version: 5.5.3-1ubuntu2.1
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `choices` (
   `idChoice` int(11) NOT NULL AUTO_INCREMENT,
-  `idPoll` int(11) NOT NULL,
+  `idPoll` varchar(6) COLLATE utf8_bin NOT NULL,
   `choice` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idChoice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS `choices` (
 
 CREATE TABLE IF NOT EXISTS `comments` (
   `idComment` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` int(11) NOT NULL,
+  `idEvent` varchar(6) COLLATE utf8_bin NOT NULL,
   `author` text COLLATE utf8_bin NOT NULL,
   `date` int(11) NOT NULL,
   `content` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idComment`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 CREATE TABLE IF NOT EXISTS `events` (
-  `idEvent` int(11) NOT NULL AUTO_INCREMENT,
+  `idEvent` varchar(6) COLLATE utf8_bin NOT NULL,
   `title` text COLLATE utf8_bin NOT NULL,
   `author` text COLLATE utf8_bin NOT NULL,
   `date` int(11) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `description` text COLLATE utf8_bin NOT NULL,
   `expirationdate` int(11) NOT NULL,
   PRIMARY KEY (`idEvent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 CREATE TABLE IF NOT EXISTS `guests` (
   `idGuest` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` int(11) NOT NULL,
+  `idEvent` varchar(6) COLLATE utf8_bin NOT NULL,
   `name` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idGuest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -85,12 +85,12 @@ CREATE TABLE IF NOT EXISTS `guests` (
 --
 
 CREATE TABLE IF NOT EXISTS `polls` (
-  `idPoll` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` int(11) DEFAULT NULL,
+  `idPoll` varchar(6) COLLATE utf8_bin NOT NULL,
+  `idEvent` varchar(6) COLLATE utf8_bin DEFAULT NULL,
   `expirationdate` int(11) NOT NULL,
   `title` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idPoll`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -100,20 +100,9 @@ CREATE TABLE IF NOT EXISTS `polls` (
 
 CREATE TABLE IF NOT EXISTS `results` (
   `choice` text COLLATE utf8_bin NOT NULL,
-  `idPoll` int(11) NOT NULL,
+  `idPoll` varchar(6) COLLATE utf8_bin NOT NULL,
   `name` char(20) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idPoll`,`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE IF NOT EXISTS `users` (
-  `email` text COLLATE utf8_bin NOT NULL,
-  `name` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

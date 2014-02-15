@@ -83,10 +83,12 @@ class Event extends Model {
 class EventDAO extends Model_pdo {
 	
 	public function addEvent ($values) {
-		$sql = 'INSERT INTO events (title, author, date, place, description, expirationdate) VALUES(?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO events (idEvent, title, author, date, place, description, expirationdate) VALUES(?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
-
+		$id_event = generateUniqueID();
+		//TODO check unicity of the id in the DB
 		$values = array (
+			$id_event,
 			$values['title'],
 			$values['author'],
 			$values['date'],
@@ -96,7 +98,7 @@ class EventDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return $this->bd->lastInsertId();
+			return $id_event;
 		} else {
 			return false;
 		}

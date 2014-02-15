@@ -61,26 +61,27 @@ class Poll extends Model {
 class PollDAO extends Model_pdo {
 	
 	public function addPoll ($values) {
-		$sql = 'INSERT INTO polls (idEvent, expirationdate, title) VALUES(?, ?, ?)';
+		$sql = 'INSERT INTO polls (idPoll, idEvent, expirationdate, title) VALUES(?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$choices = $values['choices'];
+		$id_poll = generateUniqueID();
 		
 		$values = array (
+			$id_poll,
 			$values['idEvent'],
 			$values['expirationdate'],
 			$values['title'],
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			$id = $this->bd->lastInsertId();
 			$sql = 'INSERT INTO choices (idPoll, choice) VALUES(?, ?)';
 			$stm = $this->bd->prepare ($sql);
 			foreach ($choices as $choice) {
-				if(!$stm->execute (array($id, $choice)))
+				if(!$stm->execute (array($id_poll, $choice)))
 					return false;
 			}
-			return $id;
+			return $id_poll;
 		} else {
 			return false;
 		}
@@ -158,6 +159,7 @@ class PollDAO extends Model_pdo {
 	}
 	
 	public function searchById ($id) {
+		//TODO check if id exists
 		$sql = 'SELECT * FROM polls WHERE idPoll=?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array($id));

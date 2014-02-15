@@ -113,3 +113,7 @@ function timestamptodate ($t, $hour = true) {
 		return $date;
 	}
 }
+
+function generateUniqueID()  {
+	return small_hash(uniqid("", true));
+}

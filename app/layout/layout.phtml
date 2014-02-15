@@ -17,26 +17,12 @@
 				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'index' ? 'class="active"' : ''; ?>>
 					<a href="<?php echo Url::display (); ?>">Accueil</a>
 				</li>
-				<?php if (!is_logged ()) { ?>
-				<li><a id="signin" href="#">Connectez vous</a></li>
-				<?php } else { ?>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<?php echo Session::param ('mail'); ?>
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profil</a></li>
-						<li><a id="signout" href="#">Déconnexion</a></li>
-					</ul>
+				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'howto' ? 'class="active"' : ''; ?>>
+					<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'howto')); ?>">Comment ca marche ?</a>
 				</li>
-				<?php } ?>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
 				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'about' ? 'class="active"' : ''; ?>>
 					<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'about')); ?>">À propos</a>
 				</li>
-			</ul>
 		</div>
 	</div>
 </nav>
