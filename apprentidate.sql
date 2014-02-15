@@ -23,34 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `choices`
---
-
-CREATE TABLE IF NOT EXISTS `choices` (
-  `idChoice` int(11) NOT NULL AUTO_INCREMENT,
-  `idPoll` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `choice` text CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`idChoice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=6 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comments`
---
-
-CREATE TABLE IF NOT EXISTS `comments` (
-  `idComment` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `author` text CHARACTER SET utf8 NOT NULL,
-  `date` int(11) NOT NULL,
-  `content` text CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`idComment`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `events`
 --
 
@@ -68,19 +40,6 @@ CREATE TABLE IF NOT EXISTS `events` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guests`
---
-
-CREATE TABLE IF NOT EXISTS `guests` (
-  `idGuest` int(11) NOT NULL AUTO_INCREMENT,
-  `idEvent` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `name` text CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`idGuest`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `polls`
 --
 
@@ -92,6 +51,54 @@ CREATE TABLE IF NOT EXISTS `polls` (
   PRIMARY KEY (`idPoll`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `choices`
+--
+
+
+CREATE TABLE IF NOT EXISTS `choices` (
+  `idChoice` int(11) NOT NULL AUTO_INCREMENT,
+  `idPoll` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `choice` text CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idChoice`),
+  FOREIGN KEY (idPoll) REFERENCES polls(idPoll)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `idComment` int(11) NOT NULL AUTO_INCREMENT,
+  `idEvent` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `author` text CHARACTER SET utf8 NOT NULL,
+  `date` int(11) NOT NULL,
+  `content` text CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idComment`),
+  FOREIGN KEY (idEvent) REFERENCES events(idEvent)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guests`
+--
+
+CREATE TABLE IF NOT EXISTS `guests` (
+  `idGuest` int(11) NOT NULL AUTO_INCREMENT,
+  `idEvent` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `name` text CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idGuest`),
+  FOREIGN KEY (idEvent) REFERENCES events(idEvent)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+
 -- --------------------------------------------------------
 
 --
@@ -102,7 +109,8 @@ CREATE TABLE IF NOT EXISTS `results` (
   `choice` text CHARACTER SET utf8 NOT NULL,
   `idPoll` varchar(6) CHARACTER SET utf8 NOT NULL,
   `name` char(20) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`idPoll`,`name`)
+  PRIMARY KEY (`idPoll`,`name`),
+  FOREIGN KEY (idPoll) REFERENCES polls(idPoll)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
