@@ -93,7 +93,7 @@ class EventDAO extends Model_pdo {
 			$values['author'],
 			$values['date'],
 			$values['place'],
-			$values['description'],
+			urlify($values['description']),
 			$values['expirationdate'],
 		);
 
@@ -113,7 +113,7 @@ class EventDAO extends Model_pdo {
 			$values['author'],
 			$values['date'],
 			$values['place'],
-			$values['description'],
+			urlify($values['description']),
 			$values['expirationdate'],
 			$id
 		);

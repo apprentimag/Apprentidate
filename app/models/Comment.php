@@ -60,7 +60,7 @@ class CommentDAO extends Model_pdo {
 			$values['idEvent'],
 			$values['author'],
 			$values['date'],
-			$values['content'],
+			urlify($values['content']),
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -77,7 +77,7 @@ class CommentDAO extends Model_pdo {
 		$values = array (
 			$values['author'],
 			$values['date'],
-			$values['content'],
+			urlify($values['content']),
 			$id
 		);
 
