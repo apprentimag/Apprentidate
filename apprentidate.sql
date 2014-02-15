@@ -23,11 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `auth`
+--
+
+CREATE TABLE IF NOT EXISTS `auth` (
+  `token` text NOT NULL,
+  `id` text NOT NULL,
+  `expirationdate` int(11) NOT NULL,
+  `ip` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `events`
 --
 
 CREATE TABLE IF NOT EXISTS `events` (
   `idEvent` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `adminpass` text NOT NULL,
   `title` text CHARACTER SET utf8 NOT NULL,
   `author` text CHARACTER SET utf8 NOT NULL,
   `date` int(11) NOT NULL,
@@ -46,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `events` (
 CREATE TABLE IF NOT EXISTS `polls` (
   `idPoll` varchar(6) CHARACTER SET utf8 NOT NULL,
   `idEvent` varchar(6) CHARACTER SET utf8 DEFAULT NULL,
+  `adminpass` text NOT NULL,
   `expirationdate` int(11) NOT NULL,
   `title` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idPoll`)
