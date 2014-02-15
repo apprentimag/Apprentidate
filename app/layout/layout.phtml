@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php echo self::headTitle(); ?>
 		<?php echo self::headStyle(); ?>
+		<?php echo self::headScript(); ?>
 	</head>
 	<body>
 <nav class="navbar navbar-default" role="navigation">
@@ -31,7 +32,6 @@
 		<?php $this->render (); ?>
 
 		</div>
-	<?php echo self::headScript(); ?>
 	<?php $this->partial ('script-persona'); ?>
 	<p id="version">0.9.0-alpha</p>
 	</body>

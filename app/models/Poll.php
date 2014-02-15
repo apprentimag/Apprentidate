@@ -213,6 +213,7 @@ class HelperPoll {
 			$list[$key]->_id ($dao['idPoll']);
 			$list[$key]->_idEvent ($dao['idEvent']);
 			$list[$key]->_title ($dao['title']);
+			$list[$key]->_expirationdate ($dao['expirationdate']);
 		}
 
 		return $list;

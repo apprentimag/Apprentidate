@@ -6,7 +6,7 @@
 				<h2><?php echo $this->event->title (); ?></h2>
 			</li>
 
-			<li><i class="icon-calendar"></i> Le <strong><?php echo timestamptodate ($this->event->date (), false); ?></strong></li>
+			<li><i class="icon-calendar"></i> Le <strong><?php echo timestamptodate ($this->event->date (), true); ?></strong></li>
 
 			<?php $place = $this->event->place (); ?>
 			<?php if (!empty ($place)) { ?>
@@ -127,13 +127,23 @@
 				</li>
 			<?php } ?>
 			</ul>
-		
+			<?php
+				if($this->event->expirationdate() > time ()) {
+			?>
 			<form class="form-inline" method="post" action="<?php echo Url::display (array ('c' => 'event', 'a' => 'add_user', 'params' => array ('id' => $this->event->id ()))); ?>">
 				<div class="input-append">
 					<input type="text" class="input-block-level" name="user" id="user_sidebar" placeholder="Votre nom" />
 					<button class="btn btn-primary" type="submit"><i class="icon-white icon-plus"></i></button>
 				</div>
 			</form>
+			<p>Les inscriptions se fermeront le <?php echo timestamptodate ($this->event->expirationdate(), true); ?>.</p>
+			<?php
+				} else {
+			?>
+				<p>Les inscriptions sont fermées.</p>
+			<?php
+				}
+			?>
 		</div>
 	</div>
 </div>

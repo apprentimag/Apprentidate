@@ -151,15 +151,19 @@ class pollController extends ActionController {
 		$id = htmlspecialchars (Request::param ('id'));
 		$voter = Request::param ('voter');
 		$choices = Request::param ('choices');
-
-		if ($voter != false) {
-			$pollDAO = new PollDAO ();
-			$values = array (
-				'voter' => $voter,
-				'choices' => $choices
-			);
+		
+		$pollDAO = new PollDAO ();
+		$poll = $pollDAO->searchById ($id);
+		if($poll->expirationdate() > time ()) {
+			if ($voter != false) {
+				$pollDAO = new PollDAO ();
+				$values = array (
+					'voter' => $voter,
+					'choices' => $choices
+				);
 			
-			$pollDAO->vote ($id, $values);
+				$pollDAO->vote ($id, $values);
+			}
 		}
 		
 		Request::forward (array (

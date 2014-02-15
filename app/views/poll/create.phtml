@@ -24,8 +24,20 @@
 		<div class="control-group">
 			<label class="control-label" for="expirationdateEvent">Date d'expiration des inscriptions</label>
 			<div class="controls">
-				<input class="input-xlarge" type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['expirationdateEvent'])) { echo $this->values['expirationdateEvent']; } ?>" />
+				<div id="expirationdatePicker" class="input-append">
+					<input data-format="yyyy-MM-dd hh:mm" class="input-xlarge" type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['expirationdateEvent'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d H:i', time () + 86400); } ?>" />
+					<span class="add-on">
+						<i data-date-icon="icon-calendar" data-time-icon="icon-time"></i>
+					</span>
+				</div>
 			</div>
+						
+			<script type="text/javascript">
+				$(function() {
+					$('#expirationdatePicker').datetimepicker({
+					});
+				});
+			</script>
 		</div>
 		<div class="control-group <?php if (in_array ('choices', $this->missing)) { echo ' error'; } ?>">
 			<label class="control-label" for="choicesPoll">Choix du sondage (un par ligne)</label>

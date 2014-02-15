@@ -164,12 +164,18 @@ class eventController extends ActionController {
 		$id = htmlspecialchars (Request::param ('id'));
 		$user = trim (str_replace (' ', ' ', Request::param ('user')));
 		
+
+		
 		if ($id != false && $user != false) {
-			$guestDAO = new GuestDAO ();
-			$guestDAO->addGuest(array (
-			'idEvent' => $id,
-			'name' => $user
-			));
+			$eventDAO = new EventDAO ();
+			$event = $eventDAO->searchById ($id);
+			if($event->expirationdate() > time ()) {
+				$guestDAO = new GuestDAO ();
+				$guestDAO->addGuest(array (
+				'idEvent' => $id,
+				'name' => $user
+				));
+			}
 		}
 		
 		Request::forward (array (

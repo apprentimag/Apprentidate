@@ -10,11 +10,21 @@
 		<?php } ?>
 
 		
-		<?php $nb_votes = array (); ?>
-		
+		<?php 
+		$nb_votes = array ();
+		if($this->poll->expirationdate() > time ()) {
+		?>
 		<!-- formulaire pour ajouter un utilisateur, utilise html5 -->
 		<form id="add_voter" method="post" action="<?php echo Url::display (array ('c' => 'poll', 'a' => 'vote', 'params' => array ('id' => $this->poll->id ()))); ?>">
 		</form>
+		<p>Les inscriptions se fermeront le <?php echo timestamptodate ($this->poll->expirationdate(), true); ?>.</p>
+		<?php
+		} else {
+		?>
+		<p>Les inscriptions sont fermées.</p>
+		<?php
+		}
+		?>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -41,7 +51,10 @@
 					<?php } ?>
 					<td class="none">&nbsp;</td>
 				</tr>
-				<?php } ?>
+				<?php 
+				}
+				if($this->poll->expirationdate() > time ()) {
+				?>
 				
 				<tr>
 					<td class="name_voter"><input id="name_add_voter" form="add_voter" type="text" name="voter" placeholder="Votre nom" /></td>
@@ -50,8 +63,11 @@
 					<?php } ?>
 					<td><button id="submit_add_voter" form="add_voter" class="btn btn-primary" type="submit"><i class="icon-white icon-plus"></i></button></td>
 				</tr>
-				
-				<?php if (count ($this->poll->voters ()) >= 5) { ?>
+				<?php 
+				}
+				if (count ($this->poll->voters ()) >= 5) { 
+				?>
+	
 				<tr>
 					<td class="none">&nbsp;</td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
