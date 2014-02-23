@@ -24,7 +24,7 @@
 			<label class="control-label" for="dateEvent">Date</label>
 			<div class="controls">
 				<div id="dateEventPicker" class="input-append">
-					<input data-format="yyyy-MM-dd hh:mm" class="input-xlarge" type="date" name="date" id="dateEvent" value="<?php if (!empty ($this->values['date'])) { echo $this->values['date']; } else { echo date ('Y-m-d H:i', time ()); } ?>"></input>
+					<input data-format="yyyy-MM-dd hh:mm" class="input-xlarge" type="date" name="date" id="dateEvent" value="<?php echo date ('Y-m-d H:i', $this->event->date ()); ?>"></input>
 					<span class="add-on">
 						<i data-date-icon="icon-calendar" data-time-icon="icon-time"></i>
 					</span>
@@ -42,7 +42,7 @@
 			<label class="control-label" for="expirationdateEvent">Date d'expiration des inscriptions</label>
 			<div class="controls">
 				<div id="expirationdatePicker" class="input-append">
-					<input data-format="yyyy-MM-dd hh:mm" class="input-xlarge" type="date" name="expirationdate" id="expirationdateEvent" value="<?php if (!empty ($this->values['expirationdateEvent'])) { echo $this->values['expirationdateEvent']; } else { echo date ('Y-m-d H:i', time () + 86400); } ?>" />
+					<input data-format="yyyy-MM-dd hh:mm" class="input-xlarge" type="date" name="expirationdate" id="expirationdateEvent" value="<?php echo date ('Y-m-d H:i', $this->event->expirationdate ()); ?>" />
 					<span class="add-on">
 						<i data-date-icon="icon-calendar" data-time-icon="icon-time"></i>
 					</span>

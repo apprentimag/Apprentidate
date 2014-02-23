@@ -9,7 +9,7 @@ class eventController extends ActionController {
 		
 		$guestDAO = new GuestDAO ();
 		$this->view->guests = $guestDAO->listByEventId($id);
-		
+		$this->view->isAdmin = isAdmin($id);
 		if ($this->view->event === false) {
 			Error::error (
 				404,
@@ -38,10 +38,12 @@ class eventController extends ActionController {
 			$place = trim (str_replace (' ', ' ', Request::param ('place', '')));
 			$desc = trim (str_replace (' ', ' ', Request::param ('description', '')));
 			$expirationdate = trim (str_replace (' ', ' ', Request::param ('expirationdate')));
+			$adminpass = trim (str_replace (' ', ' ', Request::param ('adminpass')));
 			$required = array (
 				'title' => $title,
 				'author' => $author,
-				'date' => $date
+				'date' => $date,
+				'adminpass' => $adminpass
 			);
 			$this->view->missing = check_missing ($required);
 			
@@ -62,7 +64,8 @@ class eventController extends ActionController {
 				'place' => htmlspecialchars ($place),
 				'description' => htmlspecialchars ($desc),
 				'participants' => array ($author),
-				'expirationdate' => $timestampexpiration
+				'expirationdate' => $timestampexpiration,
+				'adminpass' => $adminpass
 			);
 			
 			if (empty ($this->view->missing)) {
@@ -86,6 +89,48 @@ class eventController extends ActionController {
 		}
 	}
 	
+	public function authAction() {
+		$id = htmlspecialchars (Request::param ('id'));
+		
+		$eventDAO = new EventDAO ();
+		$this->view->event = $eventDAO->searchById ($id);
+		
+		if ($this->view->event === false) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		} else { 
+			View::prependTitle ($this->view->event->title () . ' - ');
+		}
+		if(Request::isPost()) {
+			$adminpass = htmlspecialchars (Request::param ('adminpass'));
+			$hashpass = hashAdminPass($id, $adminpass);
+			if($hashpass == $this->view->event->adminpass()) {
+				$expirationDate = time() + 600;
+				$authDAO = new AuthDAO();
+				$ip = _hash($id . $expirationDate . $_SERVER["REMOTE_ADDR"]);
+				$token = generateAuthToken($id, $ip, $expirationDate);
+				$authDAO->addAuth(array('token' => $token, 'id' => $id, 'ip' => $ip, 'expirationdate' => $expirationDate));
+				Session::init();
+				Session::_param($id, $token);
+				Request::forward (array (
+							'c' => 'event',
+							'a' => 'see',
+							'params' => array ('id' => $id)
+						), true);
+			}
+		} else {
+			if(isAdmin($id)) {
+				Request::forward (array (
+						'c' => 'event',
+						'a' => 'see',
+						'params' => array ('id' => $id)
+					), true);
+			}
+		}
+	}
+	
 	public function editAction () {
 		$id = htmlspecialchars (Request::param ('id'));
 		
@@ -99,9 +144,8 @@ class eventController extends ActionController {
 			);
 		} else {
 			$this->view->missing = array ();
-		
-			$author = $this->view->event->author ();
-			if (!isset ($author['mail']) || (is_logged () && $author['mail'] == Session::param ('mail'))) {
+
+			if (isAdmin($id)) {
 				View::prependTitle ('Éditer `' . $this->view->event->title () . '` - ');
 			
 				if (Request::isPost ()) {
@@ -189,10 +233,10 @@ class eventController extends ActionController {
 		$idEvent = Request::param ('idEvent');
 		$id = Request::param ('id');
 		
-		if (is_logged() && $id != false) {
+		//if (isAdmin($id)) {
 			$guestDAO = new GuestDAO ();
 			$guestDAO->deleteGuest ($id);
-		}
+		//}
 		
 		Request::forward (array (
 			'c' => 'event',
@@ -230,7 +274,7 @@ class eventController extends ActionController {
 	public function delete_commentAction () {
 		$idEvent = htmlspecialchars (Request::param ('idEvent'));
 		
-		if (is_logged ()) {
+		if (isAdmin($idEvent)) {
 			$id = htmlspecialchars (Request::param ('id'));
 		
 			if ($id != false) {

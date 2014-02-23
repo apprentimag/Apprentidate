@@ -7,6 +7,7 @@ class Poll extends Model {
 	private $expirationdate;
 	private $choices = array ();
 	private $voters = array ();
+	private $adminpass;
 	
 	public function __construct () {
 	}
@@ -28,6 +29,9 @@ class Poll extends Model {
 	}
 	public function voters () {
 		return $this->voters;
+	}
+	public function adminpass () {
+		return $this->adminpass;
 	}
 	
 	public function _id ($id) {
@@ -56,12 +60,15 @@ class Poll extends Model {
 		
 		$this->voters = $value;
 	}
+	public function _adminpass($value) {
+		$this->adminpass = $value;
+	}
 }
 
 class PollDAO extends Model_pdo {
 	
 	public function addPoll ($values) {
-		$sql = 'INSERT INTO polls (idPoll, idEvent, expirationdate, title) VALUES(?, ?, ?, ?)';
+		$sql = 'INSERT INTO polls (idPoll, idEvent, adminpass, expirationdate, title) VALUES(?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$choices = $values['choices'];
@@ -70,6 +77,7 @@ class PollDAO extends Model_pdo {
 		$values = array (
 			$id_poll,
 			$values['idEvent'],
+			hashAdminPass($id_poll, $values['adminpass']),
 			$values['expirationdate'],
 			$values['title'],
 		);
@@ -214,6 +222,7 @@ class HelperPoll {
 			$list[$key]->_idEvent ($dao['idEvent']);
 			$list[$key]->_title ($dao['title']);
 			$list[$key]->_expirationdate ($dao['expirationdate']);
+			$list[$key]->_adminpass ($dao['adminpass']);
 		}
 
 		return $list;

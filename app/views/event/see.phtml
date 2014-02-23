@@ -17,11 +17,13 @@
 
 			<li><i class="icon-user"></i> par <strong><?php echo $author['name']; ?></strong></li>
 
-			<?php if (is_logged ()) { ?>
 			<li>
+				<?php if ($this->isAdmin) { ?>
 				<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'edit', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-edit"></i> Éditer</a>
+				<?php } else { ?>
+				<a href="<?php echo Url::display (array ('c' => 'event', 'a' => 'auth', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-edit"></i> Administration</a>
+				<?php } ?>
 			</li>
-			<?php } ?>
 		
 			<?php $desc = $this->event->description ();
 			if (!empty ($desc)) { ?>
@@ -67,8 +69,8 @@
 						<ul class="media-heading">
 							<li><i class="icon-user"></i> <?php echo $author['name']; ?></li>
 							<li><i class="icon-calendar"></i> <?php echo timestamptodate ($c->date ()); ?></li>
-							<?php if (is_logged ()) { ?>
-							<li><a class="btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>"><i class="icon-remove"></i> Supprimer</a></li>
+							<?php if ($this->isAdmin) { ?>
+							<li><a class="btn btn-mini" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_comment', 'params' => array ('idEvent' => $this->event->id (), 'id' => $c->id ()))); ?>"><i class="icon-remove"></i> Supprimer</a></li>
 							<?php } ?>
 						</ul>
 
@@ -97,9 +99,9 @@
 		</div>
 		<?php } ?>
 
-		<?php if (is_logged ()) { ?>
+		<?php if ($this->isAdmin) { ?>
 		<div class="row" id="create_event">
-			<a class="span2 btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-ok-sign icon-white"></i> Créer un sondage</a>
+			<a class="span2 btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-plus-sign icon-white"></i> Créer un sondage</a>
 		</div>
 		<?php } ?>
 
@@ -119,10 +121,7 @@
 
 					<div class="media-body">
 						<h4 class="media-heading"><?php echo $participant->name(); ?></h4>
-
-						<?php if (is_logged ()) { ?>
-						<a class="delete btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>"><i class="icon-remove"></i> Supprimer</a>
-						<?php } ?>
+						<a class="btn-mini btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>"><i class="icon-minus-sign"></i>Désinscrire</a>
 					</div>
 				</li>
 			<?php } ?>

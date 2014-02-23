@@ -8,6 +8,7 @@ class Event extends Model {
 	private $place;
 	private $description;
 	private $expirationdate;
+	private $adminpass;
 	private $participants = array ();
 	
 	public function __construct () {
@@ -49,6 +50,9 @@ class Event extends Model {
 	public function expirationdate () {
 		return $this->expirationdate;
 	}
+	public function adminpass () {
+		return $this->adminpass;
+	}
 	
 	public function _id ($id) {
 		$this->idEvent = $id;
@@ -78,17 +82,21 @@ class Event extends Model {
 	public function _expirationdate($value) {
 		$this->expirationdate = $value;
 	}
+	public function _adminpass($value) {
+		$this->adminpass = $value;
+	}
 }
 
 class EventDAO extends Model_pdo {
 	
 	public function addEvent ($values) {
-		$sql = 'INSERT INTO events (idEvent, title, author, date, place, description, expirationdate) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO events (idEvent, adminpass, title, author, date, place, description, expirationdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 		$id_event = generateUniqueID();
 		//TODO check unicity of the id in the DB
 		$values = array (
 			$id_event,
+			hashAdminPass($id_event, $values['adminpass']),
 			$values['title'],
 			$values['author'],
 			$values['date'],
@@ -190,6 +198,7 @@ class HelperEvent {
 			$list[$key]->_place ($dao['place']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_expirationdate ($dao['expirationdate']);
+			$list[$key]->_adminpass ($dao['adminpass']);
 		}
 
 		return $list;

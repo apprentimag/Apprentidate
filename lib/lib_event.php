@@ -130,3 +130,30 @@ function urlify($text) {
 	}
 	return $text;
 }
+
+function hashAdminPass($id, $pass) {
+	return _hash($id . $pass);
+}
+
+function generateAuthToken($id, $ip, $expirationDate) {
+	return _hash($id . $ip . $expirationDate . uniqid("", true));
+}
+
+function _hash($str) {
+	return hash('sha256', $str);
+}
+
+function isAdmin($id) {
+	$authDAO  = new AuthDAO();
+	$auth = $authDAO->searchById(Session::param($id));
+	if($auth) {
+		if($auth->id() == $id) {
+			if($auth->ip() == _hash($id . $auth->expirationdate() . $_SERVER["REMOTE_ADDR"])) {
+				if(time() < $auth->expirationdate()) { 
+					return true;
+				}
+			}
+		}
+	}
+	return false;	
+}

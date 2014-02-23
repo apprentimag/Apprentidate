@@ -54,7 +54,12 @@ return array (
 		'action'     => 'see',
 		'params'     => array ('id')
 	),
-	
+	array (
+		'route'      => '/([\d\w]{6})',
+		'controller' => 'event',
+		'action'     => 'auth',
+		'params'     => array ('id')
+	),
 	/////
 	array (
 		'route'      => '/ajouter_un_sondage\?e=([\d\w]{6})',
