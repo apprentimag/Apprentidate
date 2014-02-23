@@ -90,7 +90,9 @@
 			<ul class="unstyled polllist">
 				<?php foreach ($this->polls as $poll) { ?>
 				<li>
-					<?php $nbVotants = count ($poll->voters ()); ?>
+					<?php if($this->isAdmin) { ?>
+					<a href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'delete', 'params' => array ('id' => $poll->id ()))); ?>" class="btn btn-mini"><i class="icon-remove"></i> Supprimer</a>
+					<?php } $nbVotants = count ($poll->voters ()); ?>
 					<span><a href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'see', 'params' => array ('id' => $poll->id ()))); ?>"><?php echo $poll->title (); ?></a></span>
 					<span class="center">(<?php echo $nbVotants; ?> votant<?php echo ($nbVotants > 1) ? 's' : ''; ?>)</span>
 				</li>
@@ -121,7 +123,7 @@
 
 					<div class="media-body">
 						<h4 class="media-heading"><?php echo $participant->name(); ?></h4>
-						<a class="btn-mini btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>"><i class="icon-minus-sign"></i>Désinscrire</a>
+						<a class="btn-mini btn" href="<?php echo Url::display (array ('c' => 'event', 'a' => 'delete_user', 'params' => array ('idEvent' => $this->event->id (), 'id' => $participant->id()))); ?>"><i class="icon-remove"></i> Désinscrire</a>
 					</div>
 				</li>
 			<?php } ?>

@@ -129,16 +129,26 @@ class PollDAO extends Model_pdo {
 	}
 	
 	public function deletePoll ($id) {
-		$sql = 'DELETE FROM events WHERE idPoll=?';
-		$stm = $this->bd->prepare ($sql);
-
+		$sqlChoices = 'DELETE FROM choices WHERE idPoll=?';
+		$sqlVotes = 'DELETE FROM results WHERE idPoll=?';
+		$sql = 'DELETE FROM polls WHERE idPoll=?';
+		
+		$stm = $this->bd->prepare ($sqlChoices);
 		$values = array ($id);
-
-		if ($stm && $stm->execute ($values)) {
-			return true;
-		} else {
+		if (!$stm || ! $stm->execute ($values)) {
 			return false;
 		}
+		$stm = $this->bd->prepare ($sqlVotes);
+		$values = array ($id);
+		if (!$stm || ! $stm->execute ($values)) {
+			return false;
+		}
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		if (!$stm || ! $stm->execute ($values)) {
+			return false;
+		}
+		return true;
 	}
 	
 	public function listPolls () {
@@ -167,13 +177,17 @@ class PollDAO extends Model_pdo {
 	}
 	
 	public function searchById ($id) {
-		//TODO check if id exists
 		$sql = 'SELECT * FROM polls WHERE idPoll=?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array($id));
 
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$values = HelperPoll::daoToPoll ($res);
+		
+		if($values == NULL) {
+			return false;
+		}
+
 		$poll = $values[0];
 
 		if (isset ($poll)) {

@@ -29,6 +29,7 @@
 			<thead>
 				<tr>
 					<th class="none">&nbsp;</th>
+					<th class="none">&nbsp;</th>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<?php $nb_votes[$key] = 0; ?>
 					<th id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></th>
@@ -39,7 +40,8 @@
 			<tbody>
 				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
 				<tr>
-					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?></td>
+					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?> </td>
+					<td class="manage_vote"><a href="#"><i class="icon-pencil"></i></a></td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<?php
 						$vote = in_array ($key, $choices);
@@ -58,6 +60,7 @@
 				
 				<tr>
 					<td class="name_voter"><input id="name_add_voter" form="add_voter" type="text" name="voter" placeholder="Votre nom" /></td>
+					<td class="none">&nbsp;</td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<td><span class="for_checkbox"><input form="add_voter" type="checkbox" name="choices[]" value="<?php echo $key; ?>" /></span></td>
 					<?php } ?>
@@ -70,6 +73,7 @@
 	
 				<tr>
 					<td class="none">&nbsp;</td>
+					<td class="none">&nbsp;</td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<td id="choice_<?php echo $key; ?>" class="choice"><?php echo $c; ?></td>
 					<?php } ?>
@@ -79,6 +83,7 @@
 				
 				<tr class="info">
 					<td class="total">&nbsp;</td>
+					<td class="none">&nbsp;</td>
 					<?php
 						ksort ($nb_votes);
 						$max = max ($nb_votes);

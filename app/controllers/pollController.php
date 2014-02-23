@@ -40,7 +40,12 @@ class pollController extends ActionController {
 		if ($this->view->event === false) {
 			View::prependTitle ('Créer un sondage - ');
 		} else {
-			View::prependTitle ('Ajouter un sondage à ' . $this->view->event->title () . ' - ');
+			if(!isAdmin($id)) {
+				Error::error (
+					403,
+					array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				);			View::prependTitle ('Ajouter un sondage à ' . $this->view->event->title () . ' - ');
+			}
 
 			if (Request::isPost ()) {
 				$title = trim (str_replace (' ', ' ', Request::param ('title')));
@@ -171,5 +176,35 @@ class pollController extends ActionController {
 			'a' => 'see',
 			'params' => array ('id' => $id)
 		), true);
+	}
+
+	public function deleteAction() {
+		$id = htmlspecialchars (Request::param ('id'));
+		$pollDAO = new PollDAO ();
+		$this->view->poll = $pollDAO->searchById ($id);
+		
+		if ($this->view->poll === false) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		} else {
+			$idevent = $this->view->poll->idEvent();
+			if($idevent !== NULL) {
+				if(!isAdmin($idevent)) {
+					Error::error (
+						403,
+						array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+					);
+				} else {
+					$pollDAO->deletePoll($id);
+					Request::forward (array (
+						'c' => 'event',
+						'a' => 'see',
+						'params' => array ('id' => $idevent)
+					), true);
+				}	
+			}
+		}
 	}
 }
