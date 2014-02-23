@@ -143,7 +143,26 @@ function _hash($str) {
 	return hash('sha256', $str);
 }
 
+function cleanOutdatedTokens() {
+	$now = time();
+	$cacheFile = CACHE_PATH . '/last_outdated_token_clean.cache';
+	$lastClean = file_get_contents($cacheFile);
+	if($lastClean) {
+		if($now - $lastClean >= CLEAN_INTERVAL_SEC) {
+			$authDAO = new AuthDAO();
+			$authDAO->deleteAuthByDate($now);
+			if(!file_put_contents($cacheFile, $now)) {
+				Log::record("Can't write content to $cacheFile", Log::ERROR);
+			}
+		}
+	} else {
+		if(!file_put_contents($cacheFile, $now)) {
+			Log::record("Can't write content to $cacheFile", Log::ERROR);
+		}
+	}
+}
 function isAdmin($id) {
+	cleanOutdatedTokens();
 	$authDAO  = new AuthDAO();
 	$auth = $authDAO->searchById(Session::param($id));
 	if($auth) {

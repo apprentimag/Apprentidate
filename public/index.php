@@ -24,6 +24,7 @@ define ('LIB_PATH', realpath (PUBLIC_PATH.'/../lib'));
 define ('APP_PATH', realpath (PUBLIC_PATH.'/../app'));
 define ('LOG_PATH', realpath (PUBLIC_PATH.'/../log'));
 define ('CACHE_PATH', realpath (PUBLIC_PATH.'/../cache'));
+define ('CLEAN_INTERVAL_SEC', 3600);
 
 set_include_path (get_include_path ()
                  . PATH_SEPARATOR
