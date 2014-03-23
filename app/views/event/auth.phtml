@@ -1,0 +1,13 @@
+<h2>Administration de <?php echo $this->event->title (); ?></h2>
+<p>Vous devez entrer le mot de passe administrateur fourni à la création de l'évènement afin de pouvoir accéder à l'interface de modification.</p>
+<form class="form-horizontal"  method="post" action="<?php echo _url('event', 'auth','id', $this->event->id());?>">
+	<div class="control-group<?php if (in_array ('adminpass', $this->missing)) { echo ' error'; } ?>">
+		<label class="control-label" for="adminpass">M.d.p administration</label>
+		<div class="controls" class="input-append">
+			<input class="input-xlarge" type="password" name="adminpass" id="adminpass"  <?php if (!empty ($this->values['adminpass'])) { echo 'value="' . $this->values['adminpass'] . '"'; } ?>/>
+			<span class="add-on">
+				<button type="submit" class="btn btn-default btn-lg">Authentification</button>
+			</span>
+		</div>
+	</div>
+</form>
