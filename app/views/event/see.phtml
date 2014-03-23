@@ -99,8 +99,9 @@
 				<?php } ?>
 			</ul>
 		</div>
+		<?php }  else {?>
+		<span>Aucun sondage n'est disponible pour le moment.</span>
 		<?php } ?>
-
 		<?php if ($this->isAdmin) { ?>
 		<div class="row" id="create_event">
 			<a class="span2 btn btn-primary" href="<?php echo Url::display (array ('c' => 'poll', 'a' => 'create', 'params' => array ('id' => $this->event->id ()))); ?>"><i class="icon-plus-sign icon-white"></i> Créer un sondage</a>
