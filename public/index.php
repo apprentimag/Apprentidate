@@ -19,11 +19,14 @@
 # ***** END LICENSE BLOCK *****
 
 // Constantes de chemins
-define ('PUBLIC_PATH', realpath (dirname(__FILE__)));
-define ('LIB_PATH', realpath (PUBLIC_PATH.'/../lib'));
-define ('APP_PATH', realpath (PUBLIC_PATH.'/../app'));
-define ('LOG_PATH', realpath (PUBLIC_PATH.'/../log'));
-define ('CACHE_PATH', realpath (PUBLIC_PATH.'/../cache'));
+define ('ROOT_PATH', realpath (dirname (__FILE__) . DIRECTORY_SEPARATOR . '..'));
+define ('PUBLIC_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'public');
+define ('LIB_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'lib');
+define ('DATA_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'data');
+define ('APP_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'app');
+define ('LOG_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'log');
+define ('CACHE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'cache');
+
 define ('CLEAN_INTERVAL_SEC', 3600);
 
 set_include_path (get_include_path ()
