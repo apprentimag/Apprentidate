@@ -11,7 +11,7 @@ class eventController extends ActionController {
 		$this->view->guests = $guestDAO->listByEventId($id);
 		$this->view->isAdmin = isAdmin($id);
 		if ($this->view->event === false) {
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
@@ -96,7 +96,7 @@ class eventController extends ActionController {
 		$this->view->event = $eventDAO->searchById ($id);
 		
 		if ($this->view->event === false) {
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
@@ -138,7 +138,7 @@ class eventController extends ActionController {
 		$this->view->event = $eventDAO->searchById ($id);
 		
 		if ($this->view->event === false) {
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
@@ -196,7 +196,7 @@ class eventController extends ActionController {
 					}
 				}
 			} else {
-				Error::error (
+				MinzError::error (
 					403,
 					array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 				);

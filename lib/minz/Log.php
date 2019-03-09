@@ -65,7 +65,7 @@ class Log {
 				fwrite ($file, $log); 
 				fclose ($file);
 			} else {
-				Error::error (
+				MinzError::error (
 					500,
 					array ('error' => array (
 						'Permission is denied for `'

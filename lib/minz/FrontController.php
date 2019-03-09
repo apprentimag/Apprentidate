@@ -46,7 +46,7 @@ class FrontController {
 			$this->router->init ();
 		} catch (RouteNotFoundException $e) {
 			Log::record ($e->getMessage (), Log::ERROR);
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ($e->getMessage ()))
 			);
@@ -66,7 +66,7 @@ class FrontController {
 		require ('Cache.php');
 		require ('Configuration.php');
 		require ('Dispatcher.php');
-		require ('Error.php');
+		require ('MinzError.php');
 		require ('Helper.php');
 		require ('Log.php');
 		require ('Model.php');
@@ -100,7 +100,7 @@ class FrontController {
 			    $e instanceof ControllerNotExistException ||
 			    $e instanceof ControllerNotActionControllerException ||
 			    $e instanceof ActionException) {
-				Error::error (
+				MinzError::error (
 					404,
 					array ('error' => array ($e->getMessage ())),
 					true

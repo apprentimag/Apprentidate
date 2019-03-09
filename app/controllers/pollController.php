@@ -8,7 +8,7 @@ class pollController extends ActionController {
 		$this->view->poll = $pollDAO->searchById ($id);
 		
 		if ($this->view->poll === false) {
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
@@ -21,7 +21,7 @@ class pollController extends ActionController {
 				$this->view->event = $eventDAO->searchById ($this->view->poll->idEvent ());
 			
 				if ($this->view->event === false) {
-					Error::error (
+					MinzError::error (
 						404,
 						array ('error' => array ('La page que vous cherchez n\'existe pas'))
 					);
@@ -41,7 +41,7 @@ class pollController extends ActionController {
 			View::prependTitle ('Créer un sondage - ');
 		} else {
 			if(!isAdmin($id)) {
-				Error::error (
+				MinzError::error (
 					403,
 					array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 				);			View::prependTitle ('Ajouter un sondage à ' . $this->view->event->title () . ' - ');
@@ -184,7 +184,7 @@ class pollController extends ActionController {
 		$this->view->poll = $pollDAO->searchById ($id);
 		
 		if ($this->view->poll === false) {
-			Error::error (
+			MinzError::error (
 				404,
 				array ('error' => array ('La page que vous cherchez n\'existe pas'))
 			);
@@ -192,7 +192,7 @@ class pollController extends ActionController {
 			$idevent = $this->view->poll->idEvent();
 			if($idevent !== NULL) {
 				if(!isAdmin($idevent)) {
-					Error::error (
+					MinzError::error (
 						403,
 						array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 					);

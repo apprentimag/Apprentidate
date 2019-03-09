@@ -5,9 +5,9 @@
 */
 
 /**
- * La classe Error permet de lancer des erreurs HTTP
+ * La classe MinzError permet de lancer des erreurs HTTP
  */
-class Error {
+class MinzError {
 	public function __construct () { }
 
 	/**
