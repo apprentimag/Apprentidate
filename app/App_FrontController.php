@@ -10,7 +10,8 @@ class App_FrontController extends FrontController {
 		$this->loadLibs ();
 		$this->loadModels ();
 		$this->loadScriptsAndStyles ();
-		
+		$this->initDB();
+
 		Session::init ();
 	}
 	
@@ -35,5 +36,16 @@ class App_FrontController extends FrontController {
 		View::appendScript (Url::display ('/scripts/jquery.js'));
 		View::appendScript (Url::display ('/bootstrap/js/bootstrap.min.js'));
 		View::appendScript (Url::display ('/bootstrap/js/bootstrap-datetimepicker.min.js'));
+	}
+
+	private function initDB () {
+		$pdo = new Model_pdo();
+		if (!$pdo->isInitialized()) {
+			$schemaFilename = ROOT_PATH . DIRECTORY_SEPARATOR . 'schema.sql';
+			if (file_exists($schemaFilename)) {
+				$schema = file_get_contents($schemaFilename);
+				$pdo->init($schema);
+			}
+		}
 	}
 }

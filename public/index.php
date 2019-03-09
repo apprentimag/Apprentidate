@@ -27,6 +27,8 @@ define ('APP_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'app');
 define ('LOG_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'log');
 define ('CACHE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'cache');
 
+define ('DATABASE_FILENAME', DATA_PATH . DIRECTORY_SEPARATOR . 'db.sqlite');
+
 define ('CLEAN_INTERVAL_SEC', 3600);
 
 set_include_path (get_include_path ()

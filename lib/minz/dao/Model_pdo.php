@@ -18,22 +18,26 @@ class Model_pdo {
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
-	public function __construct ($type = 'mysql') {
+	public function __construct ($type = 'sqlite') {
 		$db = Configuration::dataBase ();
 		try {
-			$string = $type
-			        . ':host=' . $db['host']
-			        . ';dbname=' . $db['base'];
-			$this->bd = new PDO (
-				$string,
-				$db['user'],
-				$db['password']
-			);
+			$string = 'sqlite:' . DATABASE_FILENAME;
+			$this->bd = new PDO ($string);
 		} catch (Exception $e) {
 			throw new PDOConnectionException (
 				$string,
 				$db['user'], MinzException::WARNING
 			);
 		}
+	}
+
+	public function isInitialized () {
+		return $this->bd->exec(
+			'SELECT name FROM sqlite_master WHERE type="table" AND name="auth"'
+		);
+	}
+
+	public function init ($schema) {
+		return $this->bd->exec($schema);
 	}
 }
