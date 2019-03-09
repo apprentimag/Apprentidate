@@ -41,7 +41,7 @@
 				<?php foreach ($this->poll->voters () as $key => $choices) { ?>
 				<tr>
 					<td class="name_voter"><i class="icon-user"></i> <?php echo $key; ?> </td>
-					<td class="manage_vote"><a href="#"><i class="icon-pencil"></i></a></td>
+					<td class="manage_vote"></td>
 					<?php foreach ($this->poll->choices () as $key => $c) { ?>
 					<?php
 						$vote = in_array ($key, $choices);
