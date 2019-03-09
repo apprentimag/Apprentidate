@@ -11,70 +11,85 @@ return array (
 		'controller' => 'index',
 		'action'     => 'logout'
 	),
+	array (
+		'route'      => '/about',
+		'controller' => 'index',
+		'action'     => 'about'
+	),
 	
 	/////
 	array (
-		'route'      => '/creer_un_evenement',
+		'route'      => '/events/new',
 		'controller' => 'event',
 		'action'     => 'create'
 	),
 	array (
-		'route'      => '/editer_un_evenement\?e=([\d\w]{6})',
+		'route'      => '/events/(.{6})/edit',
 		'controller' => 'event',
 		'action'     => 'edit',
 		'params'     => array ('id')
 	),
 	array (
-		'route'      => '/ajouter_utilisateur\?e=([\d\w]{6})',
+		'route'      => '/events/(.{6})/users',
 		'controller' => 'event',
 		'action'     => 'add_user',
 		'params'     => array ('id')
 	),
 	array (
-		'route'      => '/supprimer_utilisateur\?e=([\d\w]{6})&id=(\d+)',
+		'route'      => '/events/(.{6})/usersdel/(\d+)',
 		'controller' => 'event',
 		'action'     => 'delete_user',
 		'params'     => array ('idEvent', 'id')
 	),
 	array (
-		'route'      => '/ajouter_commentaire\?e=([\d\w]{6})',
+		'route'      => '/events/(.{6})/comments',
 		'controller' => 'event',
 		'action'     => 'add_comment',
 		'params'     => array ('id')
 	),
 	array (
-		'route'      => '/supprimer_commentaire\?e=([\d\w]{6})&id=([\w\d]+)',
+		'route'      => '/events/(.{6})/commentsdel/([\w\d]+)',
 		'controller' => 'event',
 		'action'     => 'delete_comment',
 		'params'     => array ('idEvent', 'id')
 	),
 	array (
-		'route'      => '/([\d\w]{6})',
+		'route'      => '/events/(.{6})',
 		'controller' => 'event',
 		'action'     => 'see',
 		'params'     => array ('id')
 	),
 	array (
-		'route'      => '/([\d\w]{6})',
+		'route'      => '/events/(.{6})/auth',
 		'controller' => 'event',
 		'action'     => 'auth',
 		'params'     => array ('id')
 	),
-	/////
 	array (
-		'route'      => '/ajouter_un_sondage\?e=([\d\w]{6})',
+		'route'      => '/events/(.{6})/polls/new',
 		'controller' => 'poll',
 		'action'     => 'create',
 		'params'     => array ('id')
 	),
+	/////
 	array (
-		'route'      => '/sondage/([\d\w]{6})',
+		'route'      => '/polls/new',
+		'controller' => 'poll',
+		'action'     => 'create'
+	),
+	array (
+		'route'      => '/polls/create',
+		'controller' => 'poll',
+		'action'     => 'createalone'
+	),
+	array (
+		'route'      => '/polls/(.{6})',
 		'controller' => 'poll',
 		'action'     => 'see',
 		'params'     => array ('id')
 	),
 	array (
-		'route'      => '/sondage/voter\?e=([\d\w]{6})',
+		'route'      => '/polls/(.{6})/vote',
 		'controller' => 'poll',
 		'action'     => 'vote',
 		'params'     => array ('id')
