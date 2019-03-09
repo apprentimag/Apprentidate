@@ -18,9 +18,6 @@
 				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'index' ? 'class="active"' : ''; ?>>
 					<a href="<?php echo Url::display (); ?>">Accueil</a>
 				</li>
-				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'howto' ? 'class="active"' : ''; ?>>
-					<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'howto')); ?>">Comment ca marche ?</a>
-				</li>
 				<li <?php echo Request::controllerName() == 'index' && Request::actionName() == 'about' ? 'class="active"' : ''; ?>>
 					<a href="<?php echo Url::display (array ('c' => 'index', 'a' => 'about')); ?>">À propos</a>
 				</li>
@@ -30,9 +27,8 @@
 
 	<div class="container">
 		<?php $this->render (); ?>
+	</div>
 
-		</div>
-	<?php $this->partial ('script-persona'); ?>
 	<p id="version">0.9.0-alpha</p>
 	</body>
 </html>

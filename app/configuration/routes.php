@@ -2,16 +2,6 @@
 
 return array (
 	array (
-		'route'      => '/login',
-		'controller' => 'index',
-		'action'     => 'login'
-	),
-	array (
-		'route'      => '/logout',
-		'controller' => 'index',
-		'action'     => 'logout'
-	),
-	array (
 		'route'      => '/about',
 		'controller' => 'index',
 		'action'     => 'about'

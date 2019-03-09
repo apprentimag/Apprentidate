@@ -32,7 +32,6 @@ class App_FrontController extends FrontController {
 		View::appendStyle (Url::display ('/bootstrap/css/bootstrap-responsive.css'));
 		View::appendStyle (Url::display ('/bootstrap/css/bootstrap-datetimepicker.min.css'));
 		View::appendStyle (Url::display ('/theme/style.css'));
-		View::appendScript ('https://login.persona.org/include.js');
 		View::appendScript (Url::display ('/scripts/jquery.js'));
 		View::appendScript (Url::display ('/bootstrap/js/bootstrap.min.js'));
 		View::appendScript (Url::display ('/bootstrap/js/bootstrap-datetimepicker.min.js'));
