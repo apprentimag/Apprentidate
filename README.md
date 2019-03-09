@@ -3,6 +3,8 @@
 Apprentidate is a web application to create events and polls (and even events
 with polls!)
 
+A hosted version is accessible at [date.apprentimag.fr](http://date.apprentimag.fr).
+
 ## Development
 
 Just install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/),
