@@ -132,8 +132,8 @@ class Configuration {
 		$general = $ini_array['general'];
 
 		// sel_application est obligatoire
-		if (isset($_ENV['APP_SECRET_KEY'])) {
-			self::$sel_application = $_ENV['APP_SECRET_KEY'];
+		if (getenv('APP_SECRET_KEY')) {
+			self::$sel_application = getenv('APP_SECRET_KEY');
 		} elseif (isset($general['sel_application'])) {
 			self::$sel_application = $general['sel_application'];
 		} else {
@@ -143,8 +143,8 @@ class Configuration {
 			);
 		}
 
-		if (isset($_ENV['APP_ENVIRONMENT'])) {
-			$environment = $_ENV['APP_ENVIRONMENT'];
+		if (getenv('APP_ENVIRONMENT')) {
+			$environment = getenv('APP_ENVIRONMENT');
 		} else {
 			$environment = $general['environment'];
 		}
